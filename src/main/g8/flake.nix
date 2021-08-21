@@ -12,7 +12,7 @@
       in {
         devShell = import ./shell.nix {
           pkgs = pkgs.extend
-            (final: prev: { jre = prev.adoptopenjdk-hotspot-bin-11; });
+            (final: prev: { jre = prev.adoptopenjdk-hotspot-bin-$java_version$; });
         };
       });
 }

@@ -28,7 +28,7 @@ Also, scalafix rewrites could be part of the project to ease the migrations even
 
 - IWPluginPresets plugin that pulls in the default plugins used in all projects and shortcuts for a few other commonly used plugins (scalajs, lagom, play etc.)
 - IWMaterialsBOM plugin that adds shortcuts to currently used versions and settings of libraries used in IW projects (ZIO, Laminar etc.)
-- IWProjectPlugin auto triggered plugin which provides default settings for all projects and exports currently used scala versions
+- IWScalaProject auto triggered plugin which provides default settings for all projects and exports currently used scala versions
 
 Template license
 ----------------

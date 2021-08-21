@@ -4,10 +4,12 @@ import sbt._
 import sbt.Keys._
 
 object IWPluginPresets extends AutoPlugin {
-  override def requires: Plugins = empty
   override def trigger = allRequirements
 
   object autoImport {
+    val addIWProjects: Def.Setting[_] = addSbtPlugin(
+      "works.iterative.sbt" % "sbt-iw-projects" % BuildInfo.version
+    )
     val addScalaJSBundler: Def.Setting[_] =
       addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")
     val addWebScalaJSBundler: Def.Setting[_] =
@@ -58,6 +60,7 @@ object IWPluginPresets extends AutoPlugin {
     addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.8.1"),
     addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.1"),
     addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.28"),
-    addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.10.0")
+    addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.10.0"),
+    addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0")
   )
 }
