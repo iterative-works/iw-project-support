@@ -8,7 +8,7 @@ import scalafix.sbt.ScalafixPlugin.autoImport._
 import org.scalafmt.sbt.ScalafmtPlugin
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
 
-object IWScalaProject extends AutoPlugin {
+object IWScalaProjectPlugin extends AutoPlugin {
   override def requires: Plugins = ScalafixPlugin && ScalafmtPlugin
 
   override def trigger: PluginTrigger = allRequirements
