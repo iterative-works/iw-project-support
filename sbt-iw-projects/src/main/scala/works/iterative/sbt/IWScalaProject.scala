@@ -25,7 +25,8 @@ object IWScalaProject extends AutoPlugin {
     // enable SemanticDB
     semanticdbEnabled := true,
     // use Scalafix compatible version,
-    semanticdbVersion := scalafixSemanticdb.revision
+    semanticdbVersion := scalafixSemanticdb.revision,
+    versionScheme := Some("early-semver")
   )
 
   override def projectSettings: Seq[Def.Setting[_]] = Seq(
