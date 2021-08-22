@@ -40,7 +40,7 @@ lazy val `sbt-iw-projects` = (project in file("sbt-iw-projects"))
   )
 
 lazy val `iw-project-support` = (project in file("."))
-  // .enablePlugins(ScriptedPlugin)
+  .enablePlugins(ScriptedPlugin)
   .settings(
     name := "iw-project-support",
     Test / test := {
