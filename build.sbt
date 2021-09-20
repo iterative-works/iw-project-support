@@ -1,6 +1,5 @@
 Global / semanticdbEnabled := true
 
-ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "works.iterative"
 ThisBuild / versionScheme := Some("strict")
 ThisBuild / githubOwner := "iterative-works"
