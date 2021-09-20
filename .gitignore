@@ -89,3 +89,4 @@ out/
 
 # semanticdb
 *.semanticdb
+/.direnv/
