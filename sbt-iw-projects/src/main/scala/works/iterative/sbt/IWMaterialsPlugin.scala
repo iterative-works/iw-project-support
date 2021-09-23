@@ -3,6 +3,10 @@ package works.iterative.sbt
 import sbt._
 import sbt.Keys._
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
+import _root_.io.gitub.sbt.tzdb.TzdbPlugin
+import _root_.io.gitub.sbt.tzdb.TzdbPlugin.autoImport._
+import locales.LocalesPlugin
+import locales.LocalesPlugin.autoImport._
 
 object IWMaterialsPlugin extends AutoPlugin {
   override def trigger: PluginTrigger = allRequirements
@@ -105,4 +109,50 @@ object IWMaterialsDeps {
 
   val laminextFetch: Def.Setting[_] =
     libraryDependencies += "io.laminext" %%% "fetch" % "0.13.10"
+
+  val addScalaJavaTime: Def.Setting[_] =
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.2.2"
+
+  val addScalaJavaLocales: Def.Setting[_] =
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-locales" % "1.1.3"
+
+  def useScalaJavaTimeAndLocales(proj: Project): Project =
+    proj
+      .enablePlugins(TzdbPlugin, LocalesPlugin)
+      .settings(
+        addScalaJavaTime,
+        addScalaJavaLocales,
+        localesFilter := locales.LocalesFilter
+          .Selection("en-US", "en", "cs-CZ", "cs"),
+        currencyFilter := locales.CurrencyFilter.Selection(
+          "AUD",
+          "BGN",
+          "CAD",
+          "CNY",
+          "CZK",
+          "DKK",
+          "EUR",
+          "GBP",
+          "HKD",
+          "HRK",
+          "HUF",
+          "CHF",
+          "ILS",
+          "JPY",
+          "KRW",
+          "NOK",
+          "NZD",
+          "PLN",
+          "RON",
+          "RUB",
+          "SEK",
+          "TRY",
+          "USD"
+        ),
+        supportISOCodes := false,
+        supportNumberFormats := true,
+        zonesFilter := { (z: String) =>
+          z == "Europe/Prague" || z == "CET" || z == "Etc/UTC" || z == "UTC"
+        }
+      )
 }

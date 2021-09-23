@@ -35,7 +35,9 @@ lazy val `sbt-iw-projects` = (project in file("sbt-iw-projects"))
     scriptedBufferLog := false,
     addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2"),
     addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.28"),
-    addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0")
+    addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0"),
+    addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "1.0.1"),
+    addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "2.6.0")
   )
 
 lazy val `iw-project-support` = (project in file("."))
