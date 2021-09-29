@@ -53,7 +53,7 @@ object IWMaterialsDeps {
   )
 
   val zioStreams: Def.Setting[_] =
-    libraryDependencies += "dev.zio" % "zio-streams" % V.zio
+    libraryDependencies += "dev.zio" %%% "zio-streams" % V.zio
 
   private val akkaOrg = "com.typesafe.akka"
   val akkaActor: Def.Setting[_] =
