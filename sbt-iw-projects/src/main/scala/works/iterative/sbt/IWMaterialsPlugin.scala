@@ -111,10 +111,10 @@ object IWMaterialsDeps {
     libraryDependencies += "io.laminext" %%% "fetch" % "0.13.10"
 
   val addScalaJavaTime: Def.Setting[_] =
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.2.2"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.3.0"
 
   val addScalaJavaLocales: Def.Setting[_] =
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-locales" % "1.1.3"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-locales" % "1.2.1"
 
   def useScalaJavaTimeAndLocales(proj: Project): Project =
     proj
