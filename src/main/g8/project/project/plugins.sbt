@@ -1,3 +1,5 @@
-resolvers += "IW plugin repository" at "https://maven.pkg.github.com/iterative-works/iw-project-support"
+resolvers += "IW releases" at "https://dig.iterative.works/maven/releases"
+
+resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
 
 addSbtPlugin("works.iterative.sbt" % "sbt-iw-plugin-presets" % "$iw_version$")

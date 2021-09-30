@@ -7,8 +7,12 @@ object IWPluginPresets extends AutoPlugin {
   override def trigger = allRequirements
 
   object autoImport {
-    val addIWProjects: Def.Setting[_] = addSbtPlugin(
+    val addIWProjects: Seq[Def.Setting[_]] = Seq(
+      addSbtPlugin(
       "works.iterative.sbt" % "sbt-iw-projects" % BuildInfo.version
+    ),
+    resolvers += "IW releases" at "https://dig.iterative.works/maven/releases",
+    resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
     )
     val addScalaJSBundler: Def.Setting[_] =
       addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")
