@@ -16,6 +16,17 @@ object IWScalaProjectPlugin extends AutoPlugin {
   object autoImport {
     val scala2Version = "2.13.6"
     val scala3Version = "3.0.1"
+    def publishToIW: Seq[Def.Setting[_]] = inThisBuild(
+      List(
+        publishTo := {
+          val base = "https://dig.iterative.works/maven/"
+          if (version.value.endsWith("SNAPSHOT"))
+            Some("snapshots" at base + "snapshots")
+          else Some("releases" at base + "releases")
+        },
+        credentials += Credentials(Path.userHome / ".sbt" / ".iw-credentials")
+      )
+    )
   }
 
   import autoImport._
