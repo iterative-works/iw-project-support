@@ -2,8 +2,15 @@ Global / semanticdbEnabled := true
 
 ThisBuild / organization := "works.iterative"
 ThisBuild / versionScheme := Some("strict")
-ThisBuild / githubOwner := "iterative-works"
-ThisBuild / githubRepository := "iw-project-support"
+
+inThisBuild(List(
+	publishTo := {
+	  val base = "https://dig.iterative.works/maven/"
+	  if (version.value.endsWith("SNAPSHOT")) Some("snapshots" at base + "snapshots")
+	  else                                    Some("releases"  at base + "releases")
+	},
+	credentials += Credentials(Path.userHome / ".sbt" / ".iw-credentials")
+))
 
 lazy val `sbt-iw-plugin-presets` = (project in file("sbt-iw-plugin-presets"))
   .enablePlugins(SbtPlugin, BuildInfoPlugin)
