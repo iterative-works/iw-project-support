@@ -19,10 +19,10 @@ object IWMaterialsVersions {
   val play = "2.8.8"
   val playJson = "2.9.2"
   val scalaTest = "3.2.9"
-  val zio = "1.0.9"
-  val zioConfig = "1.0.6"
+  val zio = "1.0.12"
+  val zioConfig = "1.0.10"
   val zioJson = "0.1.5"
-  val zioLogging = "0.5.11"
+  val zioLogging = "0.5.12"
   val laminar = "0.13.1"
 }
 
