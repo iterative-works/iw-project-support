@@ -8,11 +8,15 @@
 
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        devShell = import ./shell.nix {
-          pkgs = pkgs.extend
-            (final: prev: { jre = prev.adoptopenjdk-hotspot-bin-11; });
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            (final: prev: rec {
+              jre = prev.adoptopenjdk-hotspot-bin-11;
+              jdk = jre;
+            })
+          ];
         };
-      });
+      in { devShell = import ./shell.nix { inherit pkgs; }; });
 }
