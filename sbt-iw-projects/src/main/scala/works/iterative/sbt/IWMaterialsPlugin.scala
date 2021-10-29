@@ -74,11 +74,11 @@ object IWMaterialsDeps {
     libraryDependencies += akkaOrg %% "akka-persistence-testkit" % V.akka
 
   val scalaTest: Def.Setting[_] =
-    libraryDependencies += "org.scalatest" %%% "scalatest" % V.scalaTest
+    libraryDependencies += "org.scalatest" %%% "scalatest" % V.scalaTest % Test
   val scalaTestPlusScalacheck: Def.Setting[_] =
-    libraryDependencies += "org.scalatestplus" %% "scalacheck-1-15" % "3.2.9.0"
+    libraryDependencies += "org.scalatestplus" %% "scalacheck-1-15" % "3.2.9.0" % Test
   val playScalaTest: Def.Setting[_] =
-    libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0"
+    libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
 
   private val playOrg = "com.typesafe.play"
   val playMailer: Def.Setting[_] =
