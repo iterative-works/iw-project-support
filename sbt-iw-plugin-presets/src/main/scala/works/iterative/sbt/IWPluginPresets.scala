@@ -9,10 +9,10 @@ object IWPluginPresets extends AutoPlugin {
   object autoImport {
     val addIWProjects: Seq[Def.Setting[_]] = Seq(
       addSbtPlugin(
-      "works.iterative.sbt" % "sbt-iw-projects" % BuildInfo.version
-    ),
-    resolvers += "IW releases" at "https://dig.iterative.works/maven/releases",
-    resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
+        "works.iterative.sbt" % "sbt-iw-projects" % BuildInfo.version
+      ),
+      resolvers += "IW releases" at "https://dig.iterative.works/maven/releases",
+      resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
     )
     val addScalaJSBundler: Def.Setting[_] =
       addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")
@@ -20,12 +20,10 @@ object IWPluginPresets extends AutoPlugin {
       addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler" % "0.20.0")
     val addWebScalaJS: Def.Setting[_] =
       addSbtPlugin("com.vmunier" % "sbt-web-scalajs" % "1.2.0")
-    val addScalablyTypedConverter: Seq[Def.Setting[_]] = Seq(
-      resolvers += Resolver.bintrayRepo("oyvindberg", "converter"),
+    val addScalablyTypedConverter: Def.Setting[_] =
       addSbtPlugin(
         "org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta32"
       )
-    )
     val addTzdb: Def.Setting[_] =
       addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "1.0.1")
     val addLocales: Def.Setting[_] =
@@ -43,8 +41,9 @@ object IWPluginPresets extends AutoPlugin {
       addScalaJSCrossproject,
       addSbtScalaJSMap,
       addTzdb,
-      addLocales
-    ) ++ addScalablyTypedConverter
+      addLocales,
+      addScalablyTypedConverter
+    )
     val addLagom: Def.Setting[_] =
       addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.6.5")
     val addPlay: Def.Setting[_] =
