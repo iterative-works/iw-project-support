@@ -22,7 +22,7 @@ object IWPluginPresets extends AutoPlugin {
       addSbtPlugin("com.vmunier" % "sbt-web-scalajs" % "1.2.0")
     val addScalablyTypedConverter: Def.Setting[_] =
       addSbtPlugin(
-        "org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta32"
+        "org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta36"
       )
     val addTzdb: Def.Setting[_] =
       addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "1.0.1")
