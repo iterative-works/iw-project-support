@@ -9,10 +9,10 @@ object IWPluginPresets extends AutoPlugin {
   object autoImport {
     val addIWProjects: Seq[Def.Setting[_]] = Seq(
       addSbtPlugin(
-      "works.iterative.sbt" % "sbt-iw-projects" % BuildInfo.version
-    ),
-    resolvers += "IW releases" at "https://dig.iterative.works/maven/releases",
-    resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
+        "works.iterative.sbt" % "sbt-iw-projects" % BuildInfo.version
+      ),
+      resolvers += "IW releases" at "https://dig.iterative.works/maven/releases",
+      resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
     )
     val addScalaJSBundler: Def.Setting[_] =
       addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")
@@ -31,7 +31,7 @@ object IWPluginPresets extends AutoPlugin {
     val addLocales: Def.Setting[_] =
       addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "2.6.0")
     val addScalaJS: Def.Setting[_] =
-      addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.5.1")
+      addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.7.0")
     val addScalaJSCrossproject: Def.Setting[_] =
       addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0")
     val addSbtScalaJSMap: Def.Setting[_] =
