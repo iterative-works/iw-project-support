@@ -27,6 +27,7 @@ object IWMaterialsVersions {
   val zioConfig = "1.0.6"
   val zioJson = "0.1.5"
   val zioLogging = "0.5.11"
+  val zioPrelude = "1.0.0-RC8"
   val laminar = "0.13.1"
 }
 
@@ -48,6 +49,8 @@ object IWMaterialsDeps {
     libraryDependencies += "dev.zio" %%% "zio-json" % V.zioJson
   val zioLogging: Def.Setting[_] =
     libraryDependencies += "dev.zio" %%% "zio-logging" % V.zioLogging
+  val zioPrelude: Def.Setting[_] =
+    libraryDependencies += "dev.zio" %%% "zio-prelude" % V.zioPrelude
 
   val useZIO: Seq[Def.Setting[_]] = Seq(
     zio,
