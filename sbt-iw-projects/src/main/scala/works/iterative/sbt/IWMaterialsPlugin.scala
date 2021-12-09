@@ -24,7 +24,7 @@ object IWMaterialsVersions {
   val playJson = "2.9.2"
   val scalaTest = "3.2.9"
   val zio = "1.0.12"
-  val zioConfig = "1.0.6"
+  val zioConfig = "1.0.10"
   val zioJson = "0.1.5"
   val zioLogging = "0.5.11"
   val zioPrelude = "1.0.0-RC8"
