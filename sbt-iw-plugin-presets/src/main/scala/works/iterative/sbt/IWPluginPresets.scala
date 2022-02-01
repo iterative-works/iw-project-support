@@ -6,6 +6,8 @@ import sbt.Keys._
 object IWPluginPresets extends AutoPlugin {
   override def trigger = allRequirements
 
+  val scalaJSCrossprojectVersion = "1.1.0"
+
   object autoImport {
     val addIWProjects: Seq[Def.Setting[_]] = Seq(
       addSbtPlugin(
@@ -22,19 +24,21 @@ object IWPluginPresets extends AutoPlugin {
       addSbtPlugin("com.vmunier" % "sbt-web-scalajs" % "1.2.0")
     val addScalablyTypedConverter: Def.Setting[_] =
       addSbtPlugin(
-        "org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta36"
+        "org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta37"
       )
     val addTzdb: Def.Setting[_] =
-      addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "1.0.1")
+      addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "2.0.0")
     val addLocales: Def.Setting[_] =
       addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "2.6.0")
     val addScalaJS: Def.Setting[_] =
-      addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.7.0")
+      addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.8.0")
     val addScalaJSCrossproject: Def.Setting[_] =
-      addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0")
+      addSbtPlugin(
+        "org.portable-scala" % "sbt-scalajs-crossproject" % scalaJSCrossprojectVersion
+      )
     val addSbtScalaJSMap: Def.Setting[_] =
       addSbtPlugin(
-        "com.thoughtworks.sbt-scala-js-map" % "sbt-scala-js-map" % "4.0.0"
+        "com.thoughtworks.sbt-scala-js-map" % "sbt-scala-js-map" % "4.1.1"
       )
     val addScalaJSSupport: Seq[Def.Setting[_]] = Seq(
       addScalaJS,
@@ -58,12 +62,15 @@ object IWPluginPresets extends AutoPlugin {
   }
 
   override def projectSettings: Seq[Def.Setting[_]] = Seq(
-    addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.18"),
-    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2"),
+    addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.6.1"),
+    addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.20"),
+    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.6"),
     addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.8.1"),
-    addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.1"),
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.28"),
+    addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.2"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.34"),
     addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.10.0"),
-    addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0")
+    addSbtPlugin(
+      "org.portable-scala" % "sbt-scalajs-crossproject" % scalaJSCrossprojectVersion
+    )
   )
 }
