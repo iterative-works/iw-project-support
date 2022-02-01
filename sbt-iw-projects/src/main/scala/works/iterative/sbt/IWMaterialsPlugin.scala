@@ -23,44 +23,74 @@ object IWMaterialsVersions {
   val play = "2.8.8"
   val playJson = "2.9.2"
   val scalaTest = "3.2.9"
-  val zio = "1.0.12"
+  val zio = "1.0.13"
   val zioConfig = "1.0.10"
-  val zioJson = "0.1.5"
+  val zioJson = "0.2.0-M3"
   val zioLogging = "0.5.11"
   val zioPrelude = "1.0.0-RC8"
+  val zioZMX = "0.0.11"
   val laminar = "0.13.1"
 }
 
 object IWMaterialsDeps {
   import works.iterative.sbt.{IWMaterialsVersions => V}
 
-  val zio: Def.Setting[_] = libraryDependencies += "dev.zio" %%% "zio" % V.zio
-  val zioTest: Def.Setting[_] =
-    libraryDependencies += "dev.zio" %%% "zio-test" % V.zio % Test
-  val zioTestSbt: Def.Setting[_] =
-    libraryDependencies += "dev.zio" %%% "zio-test-sbt" % V.zio % Test
+  val zioOrg = "dev.zio"
 
-  val zioConfig: Def.Setting[_] =
-    libraryDependencies += "dev.zio" %% "zio-config" % V.zioConfig
-  val zioConfigTypesafe: Def.Setting[_] =
-    libraryDependencies += "dev.zio" %% "zio-config-typesafe" % V.zioConfig
+  def zioLib(
+      name: String,
+      version: String,
+      configurations: Option[String]
+  ): Def.Setting[_] =
+    libraryDependencies += (zioOrg %%% s"zio-$name" % version)
+      .withConfigurations(configurations)
 
-  val zioJson: Def.Setting[_] =
-    libraryDependencies += "dev.zio" %%% "zio-json" % V.zioJson
-  val zioLogging: Def.Setting[_] =
-    libraryDependencies += "dev.zio" %%% "zio-logging" % V.zioLogging
-  val zioPrelude: Def.Setting[_] =
-    libraryDependencies += "dev.zio" %%% "zio-prelude" % V.zioPrelude
+  def zioLib(
+      name: String,
+      version: String,
+      config: Configuration*
+  ): Def.Setting[_] = zioLib(
+    name,
+    version,
+    if (config.isEmpty) None else Some(config.map(_.name).mkString(","))
+  )
 
-  val useZIO: Seq[Def.Setting[_]] = Seq(
+  val zio: Def.Setting[_] = libraryDependencies += zioOrg %%% "zio" % V.zio
+
+  def zioTest(c: Configuration*): Def.Setting[_] =
+    zioLib("test", V.zio, c: _*)
+
+  def zioTestSbt(c: Configuration*): Def.Setting[_] =
+    zioLib("test-sbt", V.zio, c: _*)
+
+  val zioConfig: Def.Setting[_] = zioLib("config", V.zioConfig)
+  val zioConfigTypesafe: Def.Setting[_] = zioLib("config-typesafe", V.zioConfig)
+  val zioConfigMagnolia: Def.Setting[_] = zioLib("config-magnolia", V.zioConfig)
+
+  val zioJson: Def.Setting[_] = zioLib("json", V.zioJson)
+  val zioLogging: Def.Setting[_] = zioLib("logging", V.zioLogging)
+  val zioPrelude: Def.Setting[_] = zioLib("prelude", V.zioPrelude)
+  val zioStreams: Def.Setting[_] = zioLib("streams", V.zio)
+  val zioZMX: Def.Setting[_] = zioLib("zmx", V.zioZMX)
+
+  def useZIO(testConf: Configuration*): Seq[Def.Setting[_]] = Seq(
     zio,
-    zioTest,
-    zioTestSbt,
+    zioTest(testConf: _*),
+    zioTestSbt(testConf: _*),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
   )
 
-  val zioStreams: Def.Setting[_] =
-    libraryDependencies += "dev.zio" %%% "zio-streams" % V.zio
+  def useZIOAll(testConf: Configuration*): Seq[Def.Setting[_]] =
+    useZIO(testConf: _*) ++ Seq(
+      zioStreams,
+      zioConfig,
+      zioConfigTypesafe,
+      zioConfigMagnolia,
+      zioJson,
+      zioZMX,
+      zioLogging,
+      zioPrelude
+    )
 
   private val akkaOrg = "com.typesafe.akka"
   val akkaActor: Def.Setting[_] =
