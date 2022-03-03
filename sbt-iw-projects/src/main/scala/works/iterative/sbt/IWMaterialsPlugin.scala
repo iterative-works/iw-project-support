@@ -28,7 +28,7 @@ object IWMaterialsVersions {
   val play = "2.8.8"
   val playJson = "2.9.2"
   val scalaTest = "3.2.9"
-  val tapir = "0.20.0-M10"
+  val tapir = "0.20.1"
   val zio = "2.0.0-RC2"
   val zioConfig = "3.0.0-RC2"
   val zioInteropCats = "3.3.0-RC2"
@@ -108,11 +108,14 @@ object IWMaterialsDeps {
     )
 
   private val tapirOrg = "com.softwaremill.sttp.tapir"
-  private def tapirLib(name: String): Def.Setting[_] =
-    libraryDependencies += tapirOrg %% s"tapir-$name" % V.tapir
+  def tapirLib(name: String): Def.Setting[_] =
+    libraryDependencies += tapirOrg %%% s"tapir-$name" % V.tapir
 
   lazy val tapirCore: Def.Setting[_] = tapirLib("core")
   lazy val tapirZIO: Def.Setting[_] = tapirLib("zio")
+  lazy val tapirZIOJson: Def.Setting[_] = tapirLib("json-zio")
+  lazy val tapirSttpClient: Def.Setting[_] = tapirLib("sttp-client")
+  lazy val tapirCats: Def.Setting[_] = tapirLib("cats")
   lazy val tapirZIOHttp4sServer: Def.Setting[_] = tapirLib("zio-http4s-server")
 
   lazy val http4sBlazeServer: Def.Setting[_] =
