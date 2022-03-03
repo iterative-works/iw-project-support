@@ -24,11 +24,15 @@ object IWMaterialsVersions {
   val http4sPac4J = "4.0.0"
   val laminar = "0.14.2"
   val laminext = laminar
+  val logbackClassic = "1.2.10"
   val pac4j = "5.2.0"
   val play = "2.8.8"
   val playJson = "2.9.2"
   val scalaTest = "3.2.9"
+  val sttpClient = "3.5.0"
   val tapir = "0.20.1"
+  val urlDsl = "0.4.0"
+  val waypoint = "0.5.0"
   val zio = "2.0.0-RC2"
   val zioConfig = "3.0.0-RC2"
   val zioInteropCats = "3.3.0-RC2"
@@ -36,9 +40,6 @@ object IWMaterialsVersions {
   val zioLogging = "2.0.0-RC5"
   val zioPrelude = "1.0.0-RC10"
   val zioZMX = "0.0.11"
-  val logbackClassic = "1.2.10"
-  val waypoint = "0.5.0"
-  val urlDsl = "0.4.0"
 }
 
 object IWMaterialsDeps {
@@ -117,6 +118,12 @@ object IWMaterialsDeps {
   lazy val tapirSttpClient: Def.Setting[_] = tapirLib("sttp-client")
   lazy val tapirCats: Def.Setting[_] = tapirLib("cats")
   lazy val tapirZIOHttp4sServer: Def.Setting[_] = tapirLib("zio-http4s-server")
+
+  private val sttpClientOrg = "com.softwaremill.sttp.client3"
+  def sttpClientLib(name: String): Def.Setting[_] =
+    libraryDependencies += sttpClientOrg %%% name % V.sttpClient
+
+  lazy val sttpClientCore: Def.Setting[_] = sttpClientLib("core")
 
   lazy val http4sBlazeServer: Def.Setting[_] =
     libraryDependencies += "org.http4s" %% "http4s-blaze-server" % V.http4s
