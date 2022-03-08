@@ -17,7 +17,7 @@ object IWMaterialsPlugin extends AutoPlugin {
 }
 
 object IWMaterialsVersions {
-  val akka = "2.6.14"
+  val akka = "2.6.18"
   val akkaHttp = "10.2.4"
   val elastic4s = "7.12.2"
   val http4s = "0.23.10"
@@ -134,18 +134,20 @@ object IWMaterialsDeps {
     libraryDependencies += "org.pac4j" % "pac4j-oidc" % V.pac4j
 
   private val akkaOrg = "com.typesafe.akka"
-  lazy val akkaActor: Def.Setting[_] =
-    libraryDependencies += akkaOrg %% "akka-actor" % V.akka
-  lazy val akkaActorTyped: Def.Setting[_] =
-    libraryDependencies += akkaOrg %% "akka-actor-typed" % V.akka
+
+  def akkaLib(name: String): Def.Setting[_] = libraryDependencies += akkaOrg %% s"akka-$name" % V.akka
+
+  lazy val akkaActor: Def.Setting[_] = akkaLib("actor")
+  lazy val akkaActorTyped: Def.Setting[_] = akkaLib("actor-typed")
+  lazy val akkaStream: Def.Setting[_] = akkaLib("stream")
+  lazy val akkaPersistence: Def.Setting[_] = akkaLib("persistence-typed")
+  def akkaPersistenceTestKit(configs: Option[String] = None): Def.Setting[_] =
+    libraryDependencies += (akkaOrg %% "akka-persistence-testkit" % V.akka).withConfigurations(configs)
+
   lazy val akkaHttp: Def.Setting[_] =
     libraryDependencies += akkaOrg %% "akka-http" % V.akkaHttp
   lazy val akkaHttpSprayJson: Def.Setting[_] =
     libraryDependencies += akkaOrg %% "akka-http-spray-json" % V.akkaHttp
-  lazy val akkaStream: Def.Setting[_] =
-    libraryDependencies += akkaOrg %% "akka-stream" % V.akka
-  lazy val akkaPersistenceTestKit: Def.Setting[_] =
-    libraryDependencies += akkaOrg %% "akka-persistence-testkit" % V.akka
 
   lazy val scalaTest: Def.Setting[_] =
     libraryDependencies += "org.scalatest" %%% "scalatest" % V.scalaTest
