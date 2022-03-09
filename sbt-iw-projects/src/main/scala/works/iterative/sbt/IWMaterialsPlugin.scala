@@ -234,6 +234,8 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
 
 trait AkkaLibs {
 
+  self: SlickLibs =>
+
   object akka {
     val V = IWMaterialsVersions.akka
     val tOrg = "com.typesafe.akka"
@@ -305,16 +307,33 @@ trait AkkaLibs {
 
     object profiles {
       // TODO: type safety for requirements
-      def eventsourcedJdbcProjection(
-          slickLibs: Seq[ModuleID]
-      ): Seq[Def.Setting[_]] = Seq(
-        libraryDependencies ++= Seq(
+      lazy val eventsourcedJdbcProjection: Def.Setting[_] = {
+        val currentModules: Seq[ModuleID] = Seq(modules.persistenceQuery)
+        val laggingModules: Seq[ModuleID] = Seq(
           projection.modules.core,
           projection.modules.eventsourced,
-          modules.persistenceJdbc,
-          modules.persistenceQuery
-        ) ++ slickLibs
-      )
+          modules.persistenceJdbc
+        ) ++ slick.modules.default
+        libraryDependencies ++= {
+          CrossVersion.partialVersion(scalaVersion.value) match {
+            case Some((3, _)) =>
+              currentModules ++ laggingModules.map(
+                _.cross(librarymanagement.CrossVersion.for3Use2_13)
+                  .exclude(
+                    "org.scala-lang.modules",
+                    "scala-collection-compat_2.13"
+                  )
+                  .exclude("com.typesafe.akka", "akka-persistence-query_2.13")
+                  .exclude("com.typesafe.akka", "akka-protobuf-v3_2.13")
+                  .exclude("com.typesafe.akka", "akka-stream_2.13")
+                  .exclude("com.typesafe.akka", "akka-actor_2.13")
+                  .exclude("com.typesafe.akka", "akka-actor-typed_2.13")
+                  .exclude("com.typesafe.akka", "akka-slf4j_2.13")
+              )
+            case _ => currentModules ++ laggingModules
+          }
+        }
+      }
     }
   }
 
