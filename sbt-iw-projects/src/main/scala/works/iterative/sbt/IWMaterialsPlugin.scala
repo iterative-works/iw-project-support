@@ -19,6 +19,7 @@ object IWMaterialsPlugin extends AutoPlugin {
 object IWMaterialsVersions {
   val akka = "2.6.18"
   val akkaHttp = "10.2.4"
+  val cats = "2.7.0"
   val elastic4s = "7.12.2"
   val http4s = "0.23.10"
   val http4sPac4J = "4.0.0"
@@ -29,6 +30,7 @@ object IWMaterialsVersions {
   val play = "2.8.8"
   val playJson = "2.9.2"
   val scalaTest = "3.2.9"
+  val slick = "3.3.3"
   val sttpClient = "3.5.0"
   val tapir = "0.20.1"
   val urlDsl = "0.4.0"
@@ -42,8 +44,9 @@ object IWMaterialsVersions {
   val zioZMX = "0.0.11"
 }
 
-object IWMaterialsDeps {
-  import works.iterative.sbt.{IWMaterialsVersions => V}
+import works.iterative.sbt.{IWMaterialsVersions => V}
+
+object IWMaterialsDeps extends SlickLibs {
 
   val zioOrg = "dev.zio"
 
@@ -244,4 +247,17 @@ object IWMaterialsDeps {
 
   lazy val logbackClassic: Def.Setting[_] =
     libraryDependencies += "ch.qos.logback" % "logback-classic" % V.logbackClassic % Runtime
+}
+
+trait SlickLibs {
+  val slickOrg = "com.typesafe.slick"
+  lazy val slickModule: ModuleID = slickOrg %% "slick" % V.slick
+  lazy val slickHikariCpModule: ModuleID = slickOrg %% "slick-hikaricp" % V.slick
+
+  lazy val slickModules: Seq[ModuleID] = Seq(slickModule, slickHikariCpModule)
+  
+  lazy val slick: Def.Setting[_] = libraryDependencies ++= slickModules
+
+  def slick(mod: ModuleID => ModuleID): Def.Setting[_] =
+    libraryDependencies ++= slickModules.map(mod)
 }
