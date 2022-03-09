@@ -44,9 +44,8 @@ object IWMaterialsVersions {
   val zioZMX = "0.0.11"
 }
 
-import works.iterative.sbt.{IWMaterialsVersions => V}
-
-object IWMaterialsDeps extends SlickLibs {
+object IWMaterialsDeps extends AkkaLibs with SlickLibs {
+  import works.iterative.sbt.{IWMaterialsVersions => V}
 
   val zioOrg = "dev.zio"
 
@@ -135,22 +134,6 @@ object IWMaterialsDeps extends SlickLibs {
     libraryDependencies += "org.pac4j" %% "http4s-pac4j" % V.http4sPac4J
   lazy val pac4jOIDC: Def.Setting[_] =
     libraryDependencies += "org.pac4j" % "pac4j-oidc" % V.pac4j
-
-  private val akkaOrg = "com.typesafe.akka"
-
-  def akkaLib(name: String): Def.Setting[_] = libraryDependencies += akkaOrg %% s"akka-$name" % V.akka
-
-  lazy val akkaActor: Def.Setting[_] = akkaLib("actor")
-  lazy val akkaActorTyped: Def.Setting[_] = akkaLib("actor-typed")
-  lazy val akkaStream: Def.Setting[_] = akkaLib("stream")
-  lazy val akkaPersistence: Def.Setting[_] = akkaLib("persistence-typed")
-  def akkaPersistenceTestKit(configs: Option[String] = None): Def.Setting[_] =
-    libraryDependencies += (akkaOrg %% "akka-persistence-testkit" % V.akka).withConfigurations(configs)
-
-  lazy val akkaHttp: Def.Setting[_] =
-    libraryDependencies += akkaOrg %% "akka-http" % V.akkaHttp
-  lazy val akkaHttpSprayJson: Def.Setting[_] =
-    libraryDependencies += akkaOrg %% "akka-http-spray-json" % V.akkaHttp
 
   lazy val scalaTest: Def.Setting[_] =
     libraryDependencies += "org.scalatest" %%% "scalatest" % V.scalaTest
@@ -249,15 +232,133 @@ object IWMaterialsDeps extends SlickLibs {
     libraryDependencies += "ch.qos.logback" % "logback-classic" % V.logbackClassic % Runtime
 }
 
+trait AkkaLibs {
+
+  object akka {
+    val V = IWMaterialsVersions.akka
+    val tOrg = "com.typesafe.akka"
+    val lOrg = "com.lightbend.akka"
+
+    def akkaMod(name: String): ModuleID =
+      tOrg %% s"akka-$name" % V
+
+    def akkaLib(name: String): Def.Setting[_] =
+      libraryDependencies += akkaMod(name)
+
+    object modules {
+      lazy val actor: ModuleID = akkaMod("actor")
+      lazy val actorTyped: ModuleID = akkaMod("actor-typed")
+      lazy val stream: ModuleID = akkaMod("stream")
+      lazy val persistence: ModuleID = akkaMod("persistence-typed")
+      lazy val persistenceQuery: ModuleID = akkaMod("persistence-query")
+      lazy val persistenceJdbc: ModuleID =
+        lOrg %% "akka-persistence-jdbc" % "5.0.4"
+      def persistenceTestKit(configs: Option[String] = None): ModuleID =
+        (tOrg %% "akka-persistence-testkit" % V).withConfigurations(configs)
+    }
+
+    object libs {
+      lazy val actor: Def.Setting[_] = akkaLib("actor")
+      lazy val actorTyped: Def.Setting[_] = akkaLib("actor-typed")
+      lazy val stream: Def.Setting[_] = akkaLib("stream")
+      lazy val persistence: Def.Setting[_] = akkaLib("persistence-typed")
+      lazy val persistenceQuery: Def.Setting[_] = akkaLib("persistence-query")
+      lazy val persistenceJdbc: Def.Setting[_] =
+        libraryDependencies += modules.persistenceJdbc
+
+      def persistenceTestKit(configs: Option[String] = None): Def.Setting[_] =
+        libraryDependencies += modules.persistenceTestKit(configs)
+    }
+
+    object http {
+      val V = IWMaterialsVersions.akkaHttp
+
+      object modules {
+        lazy val http: ModuleID = tOrg %% "akka-http" % V
+        lazy val sprayJson: ModuleID = tOrg %% "akka-http-spray-json" % V
+      }
+
+      object libs {
+        lazy val http: Def.Setting[_] = libraryDependencies += modules.http
+        lazy val sprayJson: Def.Setting[_] =
+          libraryDependencies += modules.sprayJson
+      }
+    }
+
+    object projection {
+      val V = "1.2.3"
+
+      object modules {
+        lazy val core: ModuleID =
+          "com.lightbend.akka" %% "akka-projection-core" % V
+        lazy val eventsourced: ModuleID =
+          "com.lightbend.akka" %% "akka-projection-eventsourced" % V
+      }
+
+      object libs {
+        lazy val core: Def.Setting[_] =
+          libraryDependencies += modules.core
+        lazy val eventsourced: Def.Setting[_] =
+          libraryDependencies += modules.eventsourced
+      }
+    }
+
+    object profiles {
+      // TODO: type safety for requirements
+      def eventsourcedJdbcProjection(
+          slickLibs: Seq[ModuleID]
+      ): Seq[Def.Setting[_]] = Seq(
+        libraryDependencies ++= Seq(
+          projection.modules.core,
+          projection.modules.eventsourced,
+          modules.persistenceJdbc,
+          modules.persistenceQuery
+        ) ++ slickLibs
+      )
+    }
+  }
+
+  @deprecated("use akka.libs.actor", "3.0.0")
+  lazy val akkaActor: Def.Setting[_] = akka.libs.actor
+  @deprecated("use akka.libs.actorTyped", "3.0.0")
+  lazy val akkaActorTyped: Def.Setting[_] = akka.libs.actorTyped
+  @deprecated("use akka.libs.stream", "3.0.0")
+  lazy val akkaStream: Def.Setting[_] = akka.libs.stream
+  @deprecated("use akka.libs.persistence", "3.0.0")
+  lazy val akkaPersistence: Def.Setting[_] = akka.libs.persistence
+  @deprecated("use akka.libs.persistenceQuery", "3.0.0")
+  lazy val akkaPersistenceQuery: Def.Setting[_] = akka.libs.persistenceQuery
+  @deprecated("use akka.libs.persistenceTestKit", "3.0.0")
+  def akkaPersistenceTestKit(configs: Option[String] = None): Def.Setting[_] =
+    akka.libs.persistenceTestKit(configs)
+
+  @deprecated("use akka.http.libs.http", "3.0.0")
+  lazy val akkaHttp: Def.Setting[_] = akka.http.libs.http
+  @deprecated("use akka.http.libs.sprayJson", "3.0.0")
+  lazy val akkaHttpSprayJson: Def.Setting[_] = akka.http.libs.sprayJson
+
+}
+
 trait SlickLibs {
-  val slickOrg = "com.typesafe.slick"
-  lazy val slickModule: ModuleID = slickOrg %% "slick" % V.slick
-  lazy val slickHikariCpModule: ModuleID = slickOrg %% "slick-hikaricp" % V.slick
+  object slick {
+    val V = IWMaterialsVersions.slick
+    val org = "com.typesafe.slick"
 
-  lazy val slickModules: Seq[ModuleID] = Seq(slickModule, slickHikariCpModule)
-  
-  lazy val slick: Def.Setting[_] = libraryDependencies ++= slickModules
+    object modules {
+      lazy val slick: ModuleID = org %% "slick" % V
+      lazy val hikaricp: ModuleID = org %% "slick-hikaricp" % V
+      lazy val default: Seq[ModuleID] = Seq(slick, hikaricp)
+      def default(mod: ModuleID => ModuleID): Seq[ModuleID] =
+        modules.default.map(mod)
+    }
 
-  def slick(mod: ModuleID => ModuleID): Def.Setting[_] =
-    libraryDependencies ++= slickModules.map(mod)
+    object libs {
+      lazy val slick: Def.Setting[_] = libraryDependencies += modules.slick
+      lazy val hikaricp: Def.Setting[_] =
+        libraryDependencies += modules.hikaricp
+      lazy val default: Def.Setting[_] = libraryDependencies ++= modules.default
+      def default(mod: ModuleID => ModuleID): Def.Setting[_] =
+        libraryDependencies ++= modules.default(mod)
+    }
+  }
 }
