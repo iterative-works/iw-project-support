@@ -295,6 +295,8 @@ trait AkkaLibs {
           lOrg %% "akka-projection-core" % V
         lazy val eventsourced: ModuleID =
           lOrg %% "akka-projection-eventsourced" % V
+        lazy val slick: ModuleID =
+          lOrg %% "akka-projection-slick" % V
         lazy val jdbc: ModuleID =
           lOrg %% "akka-projection-jdbc" % V
       }
@@ -304,6 +306,8 @@ trait AkkaLibs {
           libraryDependencies += modules.core
         lazy val eventsourced: Def.Setting[_] =
           libraryDependencies += modules.eventsourced
+        lazy val slick: Def.Setting[_] =
+          libraryDependencies += modules.slick
         lazy val jdbc: Def.Setting[_] =
           libraryDependencies += modules.jdbc
       }
@@ -316,7 +320,7 @@ trait AkkaLibs {
           modules.persistenceQuery,
           projection.modules.core,
           projection.modules.eventsourced,
-          projection.modules.jdbc,
+          projection.modules.slick,
           modules.persistenceJdbc
         ) ++ slick.modules.default
         libraryDependencies ++= {
