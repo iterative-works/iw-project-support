@@ -17,7 +17,7 @@ object IWMaterialsPlugin extends AutoPlugin {
 }
 
 object IWMaterialsVersions {
-  val akka = "2.6.18"
+  val akka = "2.6.16"
   val akkaHttp = "10.2.4"
   val cats = "2.7.0"
   val elastic4s = "7.12.2"
@@ -288,13 +288,15 @@ trait AkkaLibs {
     }
 
     object projection {
-      val V = "1.2.3"
+      val V = "1.2.2"
 
       object modules {
         lazy val core: ModuleID =
-          "com.lightbend.akka" %% "akka-projection-core" % V
+          lOrg %% "akka-projection-core" % V
         lazy val eventsourced: ModuleID =
-          "com.lightbend.akka" %% "akka-projection-eventsourced" % V
+          lOrg %% "akka-projection-eventsourced" % V
+        lazy val slick: ModuleID =
+          lOrg %% "akka-projection-slick" % V
       }
 
       object libs {
@@ -302,35 +304,32 @@ trait AkkaLibs {
           libraryDependencies += modules.core
         lazy val eventsourced: Def.Setting[_] =
           libraryDependencies += modules.eventsourced
+        lazy val slick: Def.Setting[_] =
+          libraryDependencies += modules.slick
       }
     }
 
     object profiles {
       // TODO: type safety for requirements
       lazy val eventsourcedJdbcProjection: Def.Setting[_] = {
-        val currentModules: Seq[ModuleID] = Seq(modules.persistenceQuery)
-        val laggingModules: Seq[ModuleID] = Seq(
+        val allModules: Seq[ModuleID] = Seq(
+          modules.persistenceQuery,
           projection.modules.core,
           projection.modules.eventsourced,
+          projection.modules.slick,
           modules.persistenceJdbc
         ) ++ slick.modules.default
         libraryDependencies ++= {
           CrossVersion.partialVersion(scalaVersion.value) match {
             case Some((3, _)) =>
-              currentModules ++ laggingModules.map(
+              allModules.map(
                 _.cross(librarymanagement.CrossVersion.for3Use2_13)
                   .exclude(
                     "org.scala-lang.modules",
                     "scala-collection-compat_2.13"
                   )
-                  .exclude("com.typesafe.akka", "akka-persistence-query_2.13")
-                  .exclude("com.typesafe.akka", "akka-protobuf-v3_2.13")
-                  .exclude("com.typesafe.akka", "akka-stream_2.13")
-                  .exclude("com.typesafe.akka", "akka-actor_2.13")
-                  .exclude("com.typesafe.akka", "akka-actor-typed_2.13")
-                  .exclude("com.typesafe.akka", "akka-slf4j_2.13")
               )
-            case _ => currentModules ++ laggingModules
+            case _ => allModules
           }
         }
       }
