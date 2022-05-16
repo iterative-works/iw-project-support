@@ -35,12 +35,12 @@ object IWMaterialsVersions {
   val tapir = "0.20.1"
   val urlDsl = "0.4.0"
   val waypoint = "0.5.0"
-  val zio = "2.0.0-RC2"
-  val zioConfig = "3.0.0-RC2"
-  val zioInteropCats = "3.3.0-RC2"
-  val zioJson = "0.3.0-RC3"
-  val zioLogging = "2.0.0-RC5"
-  val zioPrelude = "1.0.0-RC10"
+  val zio = "2.0.0-RC6"
+  val zioConfig = "3.0.0-RC9"
+  val zioInteropCats = "3.3.0-RC7"
+  val zioJson = "0.3.0-RC8"
+  val zioLogging = "2.0.0-RC10"
+  val zioPrelude = "1.0.0-RC14"
   val zioZMX = "0.0.11"
 }
 
