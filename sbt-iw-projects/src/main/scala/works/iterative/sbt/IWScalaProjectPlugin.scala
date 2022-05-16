@@ -15,7 +15,7 @@ object IWScalaProjectPlugin extends AutoPlugin {
 
   object autoImport {
     val scala2Version = "2.13.8"
-    val scala3Version = "3.1.1"
+    val scala3Version = "3.1.2"
     def publishToIW: Seq[Def.Setting[_]] = inThisBuild(
       List(
         publishTo := {
