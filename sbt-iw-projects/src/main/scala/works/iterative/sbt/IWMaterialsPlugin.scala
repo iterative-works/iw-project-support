@@ -19,10 +19,10 @@ object IWMaterialsPlugin extends AutoPlugin {
 object IWMaterialsVersions {
   val akka = "2.6.16"
   val akkaHttp = "10.2.4"
-  val cats = "2.7.0"
+  val cats = "2.8.0"
   val elastic4s = "7.12.2"
-  val http4s = "0.23.10"
-  val http4sPac4J = "4.0.0"
+  val http4s = "0.23.13"
+  val http4sPac4J = "4.0.1"
   val laminar = "0.14.2"
   val laminext = laminar
   val logbackClassic = "1.2.10"
@@ -32,16 +32,16 @@ object IWMaterialsVersions {
   val scalaTest = "3.2.9"
   val slick = "3.3.3"
   val sttpClient = "3.5.0"
-  val tapir = "0.20.1"
+  val tapir = "1.0.1"
   val urlDsl = "0.4.0"
   val waypoint = "0.5.0"
-  val zio = "2.0.0-RC6"
-  val zioConfig = "3.0.0-RC9"
-  val zioInteropCats = "3.3.0-RC7"
-  val zioJson = "0.3.0-RC8"
-  val zioLogging = "2.0.0-RC10"
-  val zioPrelude = "1.0.0-RC14"
-  val zioZMX = "0.0.11"
+  val zio = "2.0.0"
+  val zioConfig = "3.0.1"
+  val zioInteropCats = "3.3.0"
+  val zioJson = "0.3.0-RC9"
+  val zioLogging = "2.0.0"
+  val zioPrelude = "1.0.0-RC15"
+  val zioZMX = "2.0.0-RC6"
 }
 
 object IWMaterialsDeps extends AkkaLibs with SlickLibs {
