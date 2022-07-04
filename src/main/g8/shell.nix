@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {
   overlays = [
     (final: prev: rec {
-      jre = prev.adoptopenjdk-hotspot-bin-11;
+      jre = prev.jdk$java_version$_headless;
       jdk = jre;
     })
   ];
