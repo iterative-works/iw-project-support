@@ -32,7 +32,7 @@ object IWScalaProjectPlugin extends AutoPlugin {
   import autoImport._
 
   override def buildSettings: Seq[Def.Setting[_]] = Seq(
-    scalaVersion := scala2Version,
+    scalaVersion := scala3Version,
     // enable SemanticDB
     semanticdbEnabled := true,
     // use Scalafix compatible version,
