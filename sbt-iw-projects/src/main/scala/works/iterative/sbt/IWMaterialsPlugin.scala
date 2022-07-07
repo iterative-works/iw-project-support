@@ -119,7 +119,7 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
   lazy val tapirZIOJson: Def.Setting[_] = tapirLib("json-zio")
   lazy val tapirSttpClient: Def.Setting[_] = tapirLib("sttp-client")
   lazy val tapirCats: Def.Setting[_] = tapirLib("cats")
-  lazy val tapirZIOHttp4sServer: Def.Setting[_] = tapirLib("zio-http4s-server")
+  lazy val tapirZIOHttp4sServer: Def.Setting[_] = tapirLib("server-http4s-zio")
 
   private val sttpClientOrg = "com.softwaremill.sttp.client3"
   def sttpClientLib(name: String): Def.Setting[_] =
