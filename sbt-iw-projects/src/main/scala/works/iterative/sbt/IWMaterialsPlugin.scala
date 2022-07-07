@@ -21,7 +21,7 @@ object IWMaterialsVersions {
   val akkaHttp = "10.2.4"
   val cats = "2.8.0"
   val elastic4s = "7.12.2"
-  val http4s = "0.23.13"
+  val http4s = "0.23.12"
   val http4sPac4J = "4.0.1"
   val laminar = "0.14.2"
   val laminext = laminar
