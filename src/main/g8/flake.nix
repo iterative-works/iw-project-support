@@ -1,5 +1,5 @@
 {
-  description = "Posuzovani shody";
+  description = "IW project";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -12,11 +12,17 @@
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
-            (final: prev: rec {
-              jre = prev.jdk$java_version$_headless;
-              jdk = jre;
-            })
+            (self: super:
+              let jvm = super.jdk$java_version$_headless;
+              in {
+                jre = jvm;
+                jdk = jvm;
+              })
           ];
         };
-      in { devShell = import ./shell.nix { inherit pkgs; }; });
+      in { devShell = with pkgs;
+          mkShell {
+            buildInputs = [ jre ammonite coursier bloop sbt scalafmt ];
+          };
+      });
 }

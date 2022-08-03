@@ -4,19 +4,30 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
-            (final: prev: rec {
-              jre = prev.adoptopenjdk-hotspot-bin-11;
-              jdk = jre;
-            })
+            (self: super:
+              let jvm = super.jdk11_headless;
+              in {
+                jre = jvm;
+                jdk = jvm;
+              })
           ];
         };
-      in { devShell = import ./shell.nix { inherit pkgs; }; });
+      in {
+        devShell = with pkgs;
+          mkShell {
+            buildInputs = [ jre ammonite coursier bloop sbt scalafmt ];
+          };
+      });
 }
