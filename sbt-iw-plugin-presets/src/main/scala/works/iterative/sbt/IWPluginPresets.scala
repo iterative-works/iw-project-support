@@ -27,11 +27,11 @@ object IWPluginPresets extends AutoPlugin {
         "org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta37"
       )
     val addTzdb: Def.Setting[_] =
-      addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "2.0.0")
+      addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "3.0.0")
     val addLocales: Def.Setting[_] =
-      addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "2.6.0")
+      addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "3.2.0")
     val addScalaJS: Def.Setting[_] =
-      addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.10.0")
+      addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.10.1")
     val addScalaJSCrossproject: Def.Setting[_] =
       addSbtPlugin(
         "org.portable-scala" % "sbt-scalajs-crossproject" % scalaJSCrossprojectVersion
@@ -63,11 +63,11 @@ object IWPluginPresets extends AutoPlugin {
 
   override def projectSettings: Seq[Def.Setting[_]] = Seq(
     addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.6.1"),
-    addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.20"),
+    addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.4.1"),
     addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.6"),
     addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.9.9"),
     addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.2"),
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.34"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.10.1"),
     addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.10.0"),
     addSbtPlugin(
       "org.portable-scala" % "sbt-scalajs-crossproject" % scalaJSCrossprojectVersion

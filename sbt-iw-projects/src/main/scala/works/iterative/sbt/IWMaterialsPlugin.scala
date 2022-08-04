@@ -3,8 +3,8 @@ package works.iterative.sbt
 import sbt._
 import sbt.Keys._
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
-import _root_.io.gitub.sbt.tzdb.TzdbPlugin
-import _root_.io.gitub.sbt.tzdb.TzdbPlugin.autoImport._
+import _root_.io.github.sbt.tzdb.TzdbPlugin
+import _root_.io.github.sbt.tzdb.TzdbPlugin.autoImport._
 import locales.LocalesPlugin
 import locales.LocalesPlugin.autoImport._
 
@@ -26,12 +26,12 @@ object IWMaterialsVersions {
   val laminar = "0.14.2"
   val laminext = laminar
   val logbackClassic = "1.2.10"
-  val pac4j = "5.2.0"
+  val pac4j = "5.4.2"
   val play = "2.8.8"
   val playJson = "2.9.2"
   val scalaTest = "3.2.9"
   val slick = "3.3.3"
-  val sttpClient = "3.5.0"
+  val sttpClient = "3.7.2"
   val tapir = "1.0.1"
   val urlDsl = "0.4.0"
   val waypoint = "0.5.0"
