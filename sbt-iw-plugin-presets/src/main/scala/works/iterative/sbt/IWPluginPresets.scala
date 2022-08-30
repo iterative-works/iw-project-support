@@ -6,7 +6,7 @@ import sbt.Keys._
 object IWPluginPresets extends AutoPlugin {
   override def trigger = allRequirements
 
-  val scalaJSCrossprojectVersion = "1.1.0"
+  val scalaJSCrossprojectVersion = "1.2.0"
 
   object autoImport {
     val addIWProjects: Seq[Def.Setting[_]] = Seq(

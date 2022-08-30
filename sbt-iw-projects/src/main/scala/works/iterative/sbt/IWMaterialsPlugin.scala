@@ -35,7 +35,7 @@ object IWMaterialsVersions {
   val tapir = "1.0.1"
   val urlDsl = "0.4.0"
   val waypoint = "0.5.0"
-  val zio = "2.0.0"
+  val zio = "2.0.1"
   val zioConfig = "3.0.1"
   val zioInteropCats = "3.3.0"
   val zioJson = "0.3.0-RC9"
