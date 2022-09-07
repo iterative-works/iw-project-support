@@ -31,17 +31,18 @@ object IWMaterialsVersions {
   val playJson = "2.9.2"
   val scalaTest = "3.2.9"
   val slick = "3.3.3"
-  val sttpClient = "3.7.2"
+  val sttpClient = "3.7.6"
   val tapir = "1.0.6"
   val urlDsl = "0.4.0"
   val waypoint = "0.5.0"
   val zio = "2.0.1"
   val zioConfig = "3.0.1"
   val zioInteropCats = "3.3.0"
+  val zioInteropReactiveStreams = "2.0.0"
   val zioJson = "0.3.0-RC9"
   val zioLogging = "2.0.0"
+  val zioMetrics = "2.0.0"
   val zioPrelude = "1.0.0-RC15"
-  val zioZMX = "2.0.0-RC6"
 }
 
 object IWMaterialsDeps extends AkkaLibs with SlickLibs {
@@ -87,9 +88,11 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
     zioLib("logging-slf4j", V.zioLogging)
   lazy val zioPrelude: Def.Setting[_] = zioLib("prelude", V.zioPrelude)
   lazy val zioStreams: Def.Setting[_] = zioLib("streams", V.zio)
-  lazy val zioZMX: Def.Setting[_] = zioLib("zmx", V.zioZMX)
+  lazy val zioMetrics: Def.Setting[_] = zioLib("metrics", V.zioMetrics)
   lazy val zioInteropCats: Def.Setting[_] =
     zioLib("interop-cats", V.zioInteropCats)
+  lazy val zioInteropReactiveStreams: Def.Setting[_] =
+    zioLib("interop-reactivestreams", V.zioInteropReactiveStreams)
 
   def useZIO(testConf: Configuration*): Seq[Def.Setting[_]] = Seq(
     zio,
@@ -105,7 +108,7 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
       zioConfigTypesafe,
       zioConfigMagnolia,
       zioJson,
-      zioZMX,
+      zioMetrics,
       zioLogging,
       zioPrelude
     )
