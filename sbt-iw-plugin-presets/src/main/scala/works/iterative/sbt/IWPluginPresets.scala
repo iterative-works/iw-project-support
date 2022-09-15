@@ -46,11 +46,14 @@ object IWPluginPresets extends AutoPlugin {
       evictionErrorLevel := Level.Warn,
       addScalaJS,
       addScalaJSCrossproject,
-      addSbtScalaJSMap,
       addTzdb,
       addLocales,
       addScalablyTypedConverter
-    )
+    ) ++ (if (file(".git").isFile) { // only add sbt-scala-js-map if we're in a git repo
+            Seq(addSbtScalaJSMap)
+          } else {
+            Seq.empty
+          })
     val addLagom: Def.Setting[_] =
       addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.6.5")
     val addPlay: Def.Setting[_] =
