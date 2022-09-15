@@ -41,6 +41,9 @@ object IWPluginPresets extends AutoPlugin {
         "com.thoughtworks.sbt-scala-js-map" % "sbt-scala-js-map" % "4.1.1"
       )
     val addScalaJSSupport: Seq[Def.Setting[_]] = Seq(
+      // TODO: remove after the scalajs-locales scala-xml dep will stop being in conflict with the rest
+      // It already uses scala-xml 2.0.1, but the rest is still on 1.3.x
+      evictionErrorLevel := Level.Warn,
       addScalaJS,
       addScalaJSCrossproject,
       addSbtScalaJSMap,
