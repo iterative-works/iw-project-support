@@ -3,14 +3,17 @@ Global / semanticdbEnabled := true
 ThisBuild / organization := "works.iterative"
 ThisBuild / versionScheme := Some("strict")
 
-inThisBuild(List(
-	publishTo := {
-	  val base = "https://dig.iterative.works/maven/"
-	  if (version.value.endsWith("SNAPSHOT")) Some("snapshots" at base + "snapshots")
-	  else                                    Some("releases"  at base + "releases")
-	},
-	credentials += Credentials(Path.userHome / ".sbt" / ".iw-credentials")
-))
+inThisBuild(
+  List(
+    publishTo := {
+      val base = "https://dig.iterative.works/maven/"
+      if (version.value.endsWith("SNAPSHOT"))
+        Some("snapshots" at base + "snapshots")
+      else Some("releases" at base + "releases")
+    },
+    credentials += Credentials(Path.userHome / ".sbt" / ".iw-credentials")
+  )
+)
 
 lazy val `sbt-iw-plugin-presets` = (project in file("sbt-iw-plugin-presets"))
   .enablePlugins(SbtPlugin, BuildInfoPlugin)
@@ -44,7 +47,8 @@ lazy val `sbt-iw-projects` = (project in file("sbt-iw-projects"))
     addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.28"),
     addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0"),
     addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "3.0.0"),
-    addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "3.2.0")
+    addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "3.2.0"),
+    addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.4.1")
   )
 
 lazy val `iw-project-support` = (project in file("."))

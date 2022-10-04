@@ -197,6 +197,9 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
       .settings(
         addScalaJavaTime,
         addScalaJavaLocales,
+        // Newer tzdata break the plugin because of format changes
+        // Remove when fixed https://github.com/cquiroz/sbt-tzdb/issues/186
+        dbVersion := TzdbPlugin.Version("2022a"),
         localesFilter := locales.LocalesFilter
           .Selection("en-US", "en", "cs-CZ", "cs"),
         currencyFilter := locales.CurrencyFilter.Selection(
