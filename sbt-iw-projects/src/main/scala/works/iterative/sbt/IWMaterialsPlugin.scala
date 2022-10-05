@@ -94,12 +94,17 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
   lazy val zioInteropReactiveStreams: Def.Setting[_] =
     zioLib("interop-reactivestreams", V.zioInteropReactiveStreams)
 
-  def useZIO(testConf: Configuration*): Seq[Def.Setting[_]] = Seq(
-    zio,
-    zioTest(testConf: _*),
-    zioTestSbt(testConf: _*),
-    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
-  )
+  def useZIOTest(testConf: Configuration*): Seq[Def.Setting[_]] = {
+    val testConfigurations = if (testConf.isEmpty) Seq(Test) else testConf
+    Seq(
+      zioTest(testConfigurations: _*),
+      zioTestSbt(testConfigurations: _*),
+      testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+    )
+  }
+
+  def useZIO(testConf: Configuration*): Seq[Def.Setting[_]] =
+    zio +: useZIOTest(testConf: _*)
 
   def useZIOAll(testConf: Configuration*): Seq[Def.Setting[_]] =
     useZIO(testConf: _*) ++ Seq(
