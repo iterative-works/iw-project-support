@@ -103,6 +103,26 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
     )
   }
 
+  def useZIOJson: Seq[Def.Setting[_]] = {
+    import _root_.io.github.davidgregory084.TpolecatPlugin.autoImport._
+
+    val retainTrees = {
+      import scala.Ordering.Implicits._
+      import _root_.io.github.davidgregory084.ScalaVersion._
+      ScalacOptions.privateOption(
+        "retain-trees",
+        version => {
+          version >= V3_0_0
+        }
+      )
+    }
+
+    Seq(
+      zioJson,
+      tpolecatScalacOptions += retainTrees
+    )
+  }
+
   def useZIO(testConf: Configuration*): Seq[Def.Setting[_]] =
     zio +: useZIOTest(testConf: _*)
 
@@ -112,11 +132,10 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
       zioConfig,
       zioConfigTypesafe,
       zioConfigMagnolia,
-      zioJson,
       zioMetrics,
       zioLogging,
       zioPrelude
-    )
+    ) ++ useZIOJson
 
   private val tapirOrg = "com.softwaremill.sttp.tapir"
   def tapirLib(name: String): Def.Setting[_] =
