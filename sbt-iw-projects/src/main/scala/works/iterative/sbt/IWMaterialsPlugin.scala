@@ -33,7 +33,7 @@ object IWMaterialsVersions {
   val scalaTest = "3.2.14"
   val slick = "3.4.1"
   val sttpClient = "3.8.3"
-  val support = "0.1.1"
+  val support = "0.1.2"
   val tapir = "1.1.4"
   val urlDsl = "0.4.3"
   val waypoint = "0.5.0"
