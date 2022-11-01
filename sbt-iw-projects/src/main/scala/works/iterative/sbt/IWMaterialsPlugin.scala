@@ -288,17 +288,17 @@ trait IWSupport {
 
     object libs {
       def core: Def.Setting[_] =
-        libraryDependencies += supportOrg %% supportName("core") % version
+        libraryDependencies += supportOrg %%% supportName("core") % version
       def codecs: Def.Setting[_] =
-        libraryDependencies += supportOrg %% supportName("codecs") % version
+        libraryDependencies += supportOrg %%% supportName("codecs") % version
       def tapir: Def.Setting[_] =
-        libraryDependencies += supportOrg %% supportName("tapir") % version
+        libraryDependencies += supportOrg %%% supportName("tapir") % version
       def mongo: Def.Setting[_] = supportLib("mongo")
       def `akka-persistence`: Def.Setting[_] = supportLib("akka-persistence")
       def ui: Def.Setting[_] =
-        libraryDependencies += supportOrg %% supportName("ui") % version
+        libraryDependencies += supportOrg %%% supportName("ui") % version
       def `ui-model`: Def.Setting[_] =
-        libraryDependencies += supportOrg %% supportName("ui-model") % version
+        libraryDependencies += supportOrg %%% supportName("ui-model") % version
       def `ui-components`: Def.Setting[_] =
         libraryDependencies += supportOrg %%% supportName(
           "ui-components"
