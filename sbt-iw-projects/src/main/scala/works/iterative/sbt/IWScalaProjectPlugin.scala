@@ -27,6 +27,12 @@ object IWScalaProjectPlugin extends AutoPlugin {
         credentials += Credentials(Path.userHome / ".sbt" / ".iw-credentials")
       )
     )
+    def resolveIW: Seq[Def.Setting[_]] = inThisBuild(
+      List(
+        resolvers += "IW releases" at "https://dig.iterative.works/maven/releases",
+        resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
+      )
+    )
   }
 
   import autoImport._

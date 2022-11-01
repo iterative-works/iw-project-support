@@ -17,35 +17,38 @@ object IWMaterialsPlugin extends AutoPlugin {
 }
 
 object IWMaterialsVersions {
-  val akka = "2.6.16"
-  val akkaHttp = "10.2.4"
+  val akka = "2.6.17"
+  val akkaHttp = "10.4.0"
   val cats = "2.8.0"
-  val elastic4s = "7.12.2"
-  val http4s = "0.23.12"
-  val http4sPac4J = "4.0.1"
-  val laminar = "0.14.2"
-  val laminext = laminar
-  val logbackClassic = "1.2.10"
+  val elastic4s = "7.12.4"
+  val http4s = "0.23.16"
+  val http4sBlaze = "0.23.12"
+  val http4sPac4J = "4.1.0"
+  val laminar = "0.14.5"
+  val laminext = "0.14.4"
+  val logbackClassic = "1.4.4"
   val pac4j = "5.4.2"
-  val play = "2.8.8"
-  val playJson = "2.9.2"
-  val scalaTest = "3.2.9"
-  val slick = "3.3.3"
-  val sttpClient = "3.7.6"
-  val tapir = "1.0.6"
-  val urlDsl = "0.4.0"
+  val play = "2.8.18"
+  val playJson = "2.9.3"
+  val scalaTest = "3.2.14"
+  val slick = "3.4.1"
+  val sttpClient = "3.8.3"
+  val support = "0.1.1"
+  val tapir = "1.1.4"
+  val urlDsl = "0.4.3"
   val waypoint = "0.5.0"
-  val zio = "2.0.1"
-  val zioConfig = "3.0.1"
+  val zio = "2.0.2"
+  val zioConfig = "3.0.2"
   val zioInteropCats = "3.3.0"
   val zioInteropReactiveStreams = "2.0.0"
-  val zioJson = "0.3.0-RC9"
-  val zioLogging = "2.0.0"
+  val zioJson = "0.3.0"
+  val zioLogging = "2.1.3"
+  val zioNIO = "2.0.0"
   val zioMetrics = "2.0.0"
-  val zioPrelude = "1.0.0-RC15"
+  val zioPrelude = "1.0.0-RC16"
 }
 
-object IWMaterialsDeps extends AkkaLibs with SlickLibs {
+object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
   import works.iterative.sbt.{IWMaterialsVersions => V}
 
   val zioOrg = "dev.zio"
@@ -93,6 +96,7 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
     zioLib("interop-cats", V.zioInteropCats)
   lazy val zioInteropReactiveStreams: Def.Setting[_] =
     zioLib("interop-reactivestreams", V.zioInteropReactiveStreams)
+  lazy val zioNIO: Def.Setting[_] = zioLib("nio", V.zioNIO)
 
   def useZIOTest(testConf: Configuration*): Seq[Def.Setting[_]] = {
     val testConfigurations = if (testConf.isEmpty) Seq(Test) else testConf
@@ -155,7 +159,7 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
   lazy val sttpClientCore: Def.Setting[_] = sttpClientLib("core")
 
   lazy val http4sBlazeServer: Def.Setting[_] =
-    libraryDependencies += "org.http4s" %% "http4s-blaze-server" % V.http4s
+    libraryDependencies += "org.http4s" %% "http4s-blaze-server" % V.http4sBlaze
 
   lazy val http4sPac4J: Def.Setting[_] =
     libraryDependencies += "org.pac4j" %% "http4s-pac4j" % V.http4sPac4J
@@ -165,7 +169,7 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
   lazy val scalaTest: Def.Setting[_] =
     libraryDependencies += "org.scalatest" %%% "scalatest" % V.scalaTest
   lazy val scalaTestPlusScalacheck: Def.Setting[_] =
-    libraryDependencies += "org.scalatestplus" %% "scalacheck-1-15" % "3.2.9.0"
+    libraryDependencies += "org.scalatestplus" %% "scalacheck-1-15" % "3.2.14.0"
   lazy val playScalaTest: Def.Setting[_] =
     libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0"
 
@@ -195,7 +199,7 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
     libraryDependencies += "com.raquo" %%% "laminar" % V.laminar
 
   private def laminext(name: String): Def.Setting[_] =
-    libraryDependencies += "io.laminext" %%% name % V.laminar
+    libraryDependencies += "io.laminext" %%% name % V.laminext
 
   lazy val laminextCore: Def.Setting[_] = laminext("core")
   lazy val laminextTailwind: Def.Setting[_] = laminext("tailwind")
@@ -210,10 +214,10 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
     libraryDependencies += "be.doeraene" %%% "url-dsl" % V.urlDsl
 
   lazy val addScalaJavaTime: Def.Setting[_] =
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.3.0"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.4.0"
 
   lazy val addScalaJavaLocales: Def.Setting[_] =
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-locales" % "1.2.1"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-locales" % "1.4.1"
 
   def useScalaJavaTimeAndLocales(proj: Project): Project =
     proj
@@ -262,6 +266,49 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs {
     libraryDependencies += "ch.qos.logback" % "logback-classic" % V.logbackClassic % Runtime
 }
 
+trait IWSupport {
+  val supportOrg = "works.iterative.support"
+  def supportName(name: String): String = s"iw-support-$name"
+
+  class Support(version: String) {
+    def supportMod(name: String): ModuleID =
+      supportOrg %% supportName(name) % version
+    def supportLib(name: String): Def.Setting[_] =
+      libraryDependencies += supportMod(name)
+
+    object modules {
+      def core: ModuleID = supportMod("core")
+      def codecs: ModuleID = supportMod("codecs")
+      def tapir: ModuleID = supportMod("core")
+      def mongo: ModuleID = supportMod("mongo")
+      def `akka-persistence`: ModuleID = supportMod("akka-persistence")
+      def ui: ModuleID = supportMod("ui")
+      def `ui-model`: ModuleID = supportMod("ui-model")
+    }
+
+    object libs {
+      def core: Def.Setting[_] =
+        libraryDependencies += supportOrg %% supportName("core") % version
+      def codecs: Def.Setting[_] =
+        libraryDependencies += supportOrg %% supportName("codecs") % version
+      def tapir: Def.Setting[_] =
+        libraryDependencies += supportOrg %% supportName("tapir") % version
+      def mongo: Def.Setting[_] = supportLib("mongo")
+      def `akka-persistence`: Def.Setting[_] = supportLib("akka-persistence")
+      def ui: Def.Setting[_] =
+        libraryDependencies += supportOrg %% supportName("ui") % version
+      def `ui-model`: Def.Setting[_] =
+        libraryDependencies += supportOrg %% supportName("ui-model") % version
+      def `ui-components`: Def.Setting[_] =
+        libraryDependencies += supportOrg %%% supportName(
+          "ui-components"
+        ) % version
+    }
+  }
+
+  object support extends Support(IWMaterialsVersions.support)
+}
+
 trait AkkaLibs {
 
   self: SlickLibs =>
@@ -284,7 +331,7 @@ trait AkkaLibs {
       lazy val persistence: ModuleID = akkaMod("persistence-typed")
       lazy val persistenceQuery: ModuleID = akkaMod("persistence-query")
       lazy val persistenceJdbc: ModuleID =
-        lOrg %% "akka-persistence-jdbc" % "5.0.4"
+        lOrg %% "akka-persistence-jdbc" % "5.2.0"
       def persistenceTestKit(configs: Option[String] = None): ModuleID =
         (tOrg %% "akka-persistence-testkit" % V).withConfigurations(configs)
     }
@@ -318,7 +365,7 @@ trait AkkaLibs {
     }
 
     object projection {
-      val V = "1.2.2"
+      val V = "1.3.0"
 
       object modules {
         lazy val core: ModuleID =

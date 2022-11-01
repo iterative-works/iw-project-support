@@ -1,4 +1,5 @@
 Global / semanticdbEnabled := true
+Global / semanticdbVersion := scalafixSemanticdb.revision
 
 ThisBuild / organization := "works.iterative"
 ThisBuild / versionScheme := Some("strict")
