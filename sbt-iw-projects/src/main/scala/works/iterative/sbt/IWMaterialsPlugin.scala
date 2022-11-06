@@ -17,7 +17,7 @@ object IWMaterialsPlugin extends AutoPlugin {
 }
 
 object IWMaterialsVersions {
-  val akka = "2.6.17"
+  val akka = "2.6.18"
   val akkaHttp = "10.4.0"
   val cats = "2.8.0"
   val elastic4s = "7.12.4"
@@ -31,7 +31,7 @@ object IWMaterialsVersions {
   val play = "2.8.18"
   val playJson = "2.9.3"
   val scalaTest = "3.2.14"
-  val slick = "3.4.1"
+  val slick = "3.3.3"
   val sttpClient = "3.8.3"
   val support = "0.1.3"
   val tapir = "1.1.4"
@@ -331,7 +331,7 @@ trait AkkaLibs {
       lazy val persistence: ModuleID = akkaMod("persistence-typed")
       lazy val persistenceQuery: ModuleID = akkaMod("persistence-query")
       lazy val persistenceJdbc: ModuleID =
-        lOrg %% "akka-persistence-jdbc" % "5.2.0"
+        lOrg %% "akka-persistence-jdbc" % "5.1.0"
       def persistenceTestKit(configs: Option[String] = None): ModuleID =
         (tOrg %% "akka-persistence-testkit" % V).withConfigurations(configs)
     }
@@ -365,7 +365,7 @@ trait AkkaLibs {
     }
 
     object projection {
-      val V = "1.3.0"
+      val V = "1.2.5"
 
       object modules {
         lazy val core: ModuleID =
