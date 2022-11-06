@@ -24,7 +24,16 @@ object IWScalaProjectPlugin extends AutoPlugin {
             Some("snapshots" at base + "snapshots")
           else Some("releases" at base + "releases")
         },
-        credentials += Credentials(Path.userHome / ".sbt" / ".iw-credentials")
+        credentials += {
+          val username = sys.env.getOrElse("IW_USERNAME", "")
+          val password = sys.env.getOrElse("IW_PASSWORD", "")
+          Credentials(
+            "GitBucket Maven Repository",
+            "dig.iterative.works",
+            username,
+            password
+          )
+        }
       )
     )
     def resolveIW: Seq[Def.Setting[_]] = inThisBuild(
