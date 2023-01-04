@@ -22,7 +22,7 @@ object IWMaterialsVersions {
   val cats = "2.8.0"
   val elastic4s = "7.12.4"
   val http4s = "0.23.16"
-  val http4sBlaze = "0.23.12"
+  val http4sBlaze = "0.23.13"
   val http4sPac4J = "4.1.0"
   val laminar = "0.14.5"
   val laminext = "0.14.4"
@@ -32,19 +32,18 @@ object IWMaterialsVersions {
   val playJson = "2.9.3"
   val scalaTest = "3.2.14"
   val slick = "3.3.3"
-  val sttpClient = "3.8.3"
+  val sttpClient = "3.8.6"
   val support = "0.1.3"
-  val tapir = "1.1.4"
+  val tapir = "1.2.4"
   val urlDsl = "0.4.3"
   val waypoint = "0.5.0"
-  val zio = "2.0.2"
-  val zioConfig = "3.0.2"
+  val zio = "2.0.5"
+  val zioConfig = "3.0.6"
   val zioInteropCats = "3.3.0"
   val zioInteropReactiveStreams = "2.0.0"
-  val zioJson = "0.3.0"
-  val zioLogging = "2.1.3"
+  val zioJson = "0.4.2"
+  val zioLogging = "2.1.7"
   val zioNIO = "2.0.0"
-  val zioMetrics = "2.0.0"
   val zioPrelude = "1.0.0-RC16"
 }
 
@@ -91,7 +90,6 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
     zioLib("logging-slf4j", V.zioLogging)
   lazy val zioPrelude: Def.Setting[_] = zioLib("prelude", V.zioPrelude)
   lazy val zioStreams: Def.Setting[_] = zioLib("streams", V.zio)
-  lazy val zioMetrics: Def.Setting[_] = zioLib("metrics", V.zioMetrics)
   lazy val zioInteropCats: Def.Setting[_] =
     zioLib("interop-cats", V.zioInteropCats)
   lazy val zioInteropReactiveStreams: Def.Setting[_] =
@@ -136,7 +134,6 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
       zioConfig,
       zioConfigTypesafe,
       zioConfigMagnolia,
-      zioMetrics,
       zioLogging,
       zioPrelude
     ) ++ useZIOJson
