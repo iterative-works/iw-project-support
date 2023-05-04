@@ -53,12 +53,12 @@ lazy val `sbt-iw-projects` = (project in file("sbt-iw-projects"))
         Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
     },
     scriptedBufferLog := false,
-    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2"),
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.28"),
-    addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0"),
-    addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "3.0.0"),
-    addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "3.2.0"),
-    addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.4.1")
+    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.0"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.10.4"),
+    addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.3.1"),
+    addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "4.2.0"),
+    addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "4.2.0"),
+    addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.4.2")
   )
 
 lazy val `iw-project-support` = (project in file("."))

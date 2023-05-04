@@ -6,7 +6,7 @@ import sbt.Keys._
 object IWPluginPresets extends AutoPlugin {
   override def trigger = allRequirements
 
-  val scalaJSCrossprojectVersion = "1.2.0"
+  val scalaJSCrossprojectVersion = "1.3.1"
 
   object autoImport {
     val addIWProjects: Seq[Def.Setting[_]] = Seq(
@@ -17,21 +17,21 @@ object IWPluginPresets extends AutoPlugin {
       resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
     )
     val addScalaJSBundler: Def.Setting[_] =
-      addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")
+      addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.1")
     val addWebScalaJSBundler: Def.Setting[_] =
-      addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler" % "0.20.0")
+      addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler" % "0.21.1")
     val addWebScalaJS: Def.Setting[_] =
       addSbtPlugin("com.vmunier" % "sbt-web-scalajs" % "1.2.0")
     val addScalablyTypedConverter: Def.Setting[_] =
       addSbtPlugin(
-        "org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta39"
+        "org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta41"
       )
     val addTzdb: Def.Setting[_] =
       addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "4.2.0")
     val addLocales: Def.Setting[_] =
       addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "4.2.0")
     val addScalaJS: Def.Setting[_] =
-      addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.12.0")
+      addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.13.1")
     val addScalaJSCrossproject: Def.Setting[_] =
       addSbtPlugin(
         "org.portable-scala" % "sbt-scalajs-crossproject" % scalaJSCrossprojectVersion
@@ -69,9 +69,9 @@ object IWPluginPresets extends AutoPlugin {
 
   override def projectSettings: Seq[Def.Setting[_]] = Seq(
     addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.6.4"),
-    addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.4.1"),
+    addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.4.2"),
     addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.0"),
-    addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.9.11"),
+    addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.9.16"),
     addSbtPlugin("com.github.sbt" % "sbt-git" % "2.0.1"),
     addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.10.4"),
     addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.11.0"),
