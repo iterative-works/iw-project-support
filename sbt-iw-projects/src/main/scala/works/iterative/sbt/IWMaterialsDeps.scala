@@ -85,16 +85,15 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
   }
 
   def useZIOJson: Seq[Def.Setting[_]] = {
-    import _root_.io.github.davidgregory084.TpolecatPlugin.autoImport.*
+    import _root_.org.typelevel.sbt.tpolecat.TpolecatPlugin.autoImport.*
+    import _root_.org.typelevel.scalacoptions.*
 
     val retainTrees = {
-      import _root_.io.github.davidgregory084.ScalaVersion.*
-
       import scala.Ordering.Implicits.*
       ScalacOptions.privateOption(
         "retain-trees",
         version => {
-          version >= V3_0_0
+          version >= ScalaVersion.V3_0_0
         }
       )
     }
