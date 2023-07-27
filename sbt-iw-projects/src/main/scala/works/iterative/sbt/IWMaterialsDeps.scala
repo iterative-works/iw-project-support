@@ -67,14 +67,13 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
 
   lazy val zioSchemaDerivation: Def.Setting[_] = zioLib("schema-derivation", V.zioSchema)
 
-  lazy val caliban: Def.Setting[_] =
-  libraryDependencies += "com.github.ghostdogpr" %% "caliban" % "2.1.0"
+  lazy val caliban: Def.Setting[_] = libraryDependencies += "com.github.ghostdogpr" %% "caliban" % V.caliban
 
   lazy val calibanHttp4s: Def.Setting[_] =
     libraryDependencies += "com.github.ghostdogpr" %% "caliban-http4s" % V.caliban
 
   lazy val calibanTapir: Def.Setting[_] =
-    libraryDependencies += "com.github.ghostdogpr" %% "caliban-tapir" % "2.1.0"
+    libraryDependencies += "com.github.ghostdogpr" %% "caliban-tapir" % V.caliban
 
   def useZIOTest(testConf: Configuration*): Seq[Def.Setting[_]] = {
     val testConfigurations = if (testConf.isEmpty) Seq(Test) else testConf
