@@ -60,6 +60,7 @@ object IWScalaProjectPlugin extends AutoPlugin {
     Test / logBuffered := false,
     // Do I need this still for Metals?
     // scalacOptions += s"-P:semanticdb:sourceroot:${(ThisBuild / baseDirectory).value}",
-    scalafmtOnCompile := true
+    // This is not recommended, as it slows down compilation.
+    // scalafmtOnCompile := true
   )
 }
