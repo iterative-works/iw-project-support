@@ -17,7 +17,7 @@
           inherit system;
           overlays = [
             (self: super:
-              let jvm = super.jdk11_headless;
+              let jvm = super.jdk17_headless;
               in {
                 jre = jvm;
                 jdk = jvm;
