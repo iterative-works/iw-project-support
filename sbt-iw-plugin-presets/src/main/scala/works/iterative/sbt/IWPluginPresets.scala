@@ -31,7 +31,7 @@ object IWPluginPresets extends AutoPlugin {
     val addLocales: Def.Setting[_] =
       addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "4.2.0")
     val addScalaJS: Def.Setting[_] =
-      addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.13.2")
+      addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.14.0")
     val addScalaJSCrossproject: Def.Setting[_] =
       addSbtPlugin(
         "org.portable-scala" % "sbt-scalajs-crossproject" % scalaJSCrossprojectVersion
@@ -70,10 +70,10 @@ object IWPluginPresets extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] = Seq(
     addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.6.4"),
     addSbtPlugin("org.typelevel" % "sbt-tpolecat" % "0.5.0"),
-    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.0"),
+    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.2"),
     addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.9.16"),
     addSbtPlugin("com.github.sbt" % "sbt-git" % "2.0.1"),
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.11.0"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.11.1"),
     addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.11.0"),
     addSbtPlugin(
       "org.portable-scala" % "sbt-scalajs-crossproject" % scalaJSCrossprojectVersion
