@@ -27,7 +27,7 @@ object IWMaterialsVersions {
   val waypoint = "7.0.0"
   val zio = "2.0.19"
   val zioConfig = "3.0.7"
-  val zioInteropCats = "23.0.3"
+  val zioInteropCats = "23.1.0.0"
   val zioInteropReactiveStreams = "2.0.2"
   val zioJson = "0.6.2"
   val zioLogging = "2.1.16"
