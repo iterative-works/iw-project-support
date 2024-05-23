@@ -59,9 +59,10 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
   lazy val zioNIO: Def.Setting[_] = zioLib("nio", V.zioNIO)
   lazy val zioOptics: Def.Setting[_] = zioLib("optics", V.zioOptics)
   lazy val zioQuery: Def.Setting[_] = zioLib("query", V.zioQuery)
+  lazy val zioCli: Def.Setting[_] = zioLib("cli", V.zioCli)
 
   lazy val quill: Def.Setting[_] =
-    libraryDependencies += "io.getquill" %% "quill-caliban" % V.quill
+    libraryDependencies += "io.getquill" %% "quill-jdbc-zio" % V.quill
 
   lazy val zioSchema: Def.Setting[_] = zioLib("schema", V.zioSchema)
 
@@ -128,11 +129,20 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
   lazy val tapirCats: Def.Setting[_] = tapirLib("cats")
   lazy val tapirZIOHttp4sServer: Def.Setting[_] = tapirLib("http4s-server-zio")
 
-  private val sttpClientOrg = "com.softwaremill.sttp.client3"
-  def sttpClientLib(name: String): Def.Setting[_] =
-    libraryDependencies += sttpClientOrg %%% name % V.sttpClient
+  private val sttpClient3Org = "com.softwaremill.sttp.client3"
+  def sttpClient3Lib(name: String): Def.Setting[_] =
+    libraryDependencies += sttpClient3Org %%% name % V.sttpClient3
 
-  lazy val sttpClientCore: Def.Setting[_] = sttpClientLib("core")
+  lazy val sttpClient3Core: Def.Setting[_] = sttpClientLib("core")
+
+  private val sttpClient4Org = "com.softwaremill.sttp.client4"
+  def sttpClient4Lib(name: String): Def.Setting[_] =
+    libraryDependencies += sttpClient4Org %%% name % V.sttpClient4
+
+  lazy val sttpClient4Core: Def.Setting[_] = sttpClient4Lib("core")
+
+  lazy val sttpClientCore: Def.Setting[_] = sttpClient3Core
+  def sttpClientLib(name: String): Def.Setting[_] = sttpClient3Lib(name)
 
   lazy val http4sBlazeServer: Def.Setting[_] =
     libraryDependencies += "org.http4s" %% "http4s-blaze-server" % V.http4sBlaze
@@ -171,6 +181,12 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
     elastic4sOrg %% "elastic4s-json-play" % V.elastic4s
   )
 
+  lazy val ducktape: Def.Setting[_] =
+    libraryDependencies += "io.github.arainko" %%% "ducktape" % V.ducktape
+
+  lazy val chimney: Def.Setting[_] =
+    libraryDependencies += "io.scalaland" %% "chimney" % V.chimney
+
   lazy val laminar: Def.Setting[_] =
     libraryDependencies += "com.raquo" %%% "laminar" % V.laminar
 
@@ -193,7 +209,7 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
     libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.5.0"
 
   lazy val addScalaJavaLocales: Def.Setting[_] =
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-locales" % "1.5.1"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-locales" % "1.5.3"
 
   def useScalaJavaTimeAndLocales(proj: Project): Project =
     proj
