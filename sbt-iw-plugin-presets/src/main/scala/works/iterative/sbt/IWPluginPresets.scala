@@ -23,7 +23,7 @@ object IWPluginPresets extends AutoPlugin {
         val addTzdb: Def.Setting[?] =
             addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "4.3.0")
         val addLocales: Def.Setting[?] =
-            addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "4.4.0")
+            addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "4.5.0")
         val addScalaJS: Def.Setting[?] =
             addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.16.0")
         val addScalaJSCrossproject: Def.Setting[?] =
@@ -59,7 +59,7 @@ object IWPluginPresets extends AutoPlugin {
 
     override def projectSettings: Seq[Def.Setting[?]] = Seq(
         addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.6.4"),
-        addSbtPlugin("org.typelevel" % "sbt-tpolecat" % "0.5.1"),
+        addSbtPlugin("org.typelevel" % "sbt-tpolecat" % "0.5.2"),
         addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.2"),
         addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.10.0"),
         addSbtPlugin("com.github.sbt" % "sbt-git" % "2.0.1"),

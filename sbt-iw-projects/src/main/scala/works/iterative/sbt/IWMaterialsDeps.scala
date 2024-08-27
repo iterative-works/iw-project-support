@@ -206,10 +206,10 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
     libraryDependencies += "be.doeraene" %%% "url-dsl" % V.urlDsl
 
   lazy val addScalaJavaTime: Def.Setting[_] =
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.5.0"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0"
 
   lazy val addScalaJavaLocales: Def.Setting[_] =
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-locales" % "1.5.3"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-locales" % "1.5.4"
 
   def useScalaJavaTimeAndLocales(proj: Project): Project =
     proj
