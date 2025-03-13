@@ -14,9 +14,9 @@ object IWScalaProjectPlugin extends AutoPlugin {
     override def trigger: PluginTrigger = allRequirements
 
     object autoImport {
-        val scala2Version = "2.13.15"
-        val scala3LTSVersion = "3.3.4"
-        val scala3Version = "3.5.2"
+        val scala2Version = "2.13.16"
+        val scala3LTSVersion = "3.3.5"
+        val scala3Version = "3.6.3"
         def publishToIW: Seq[Def.Setting[?]] = inThisBuild(
             List(
                 publishTo := {

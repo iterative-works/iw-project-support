@@ -57,8 +57,6 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
   lazy val zioInteropReactiveStreams: Def.Setting[_] =
     zioLib("interop-reactivestreams", V.zioInteropReactiveStreams)
   lazy val zioNIO: Def.Setting[_] = zioLib("nio", V.zioNIO)
-  lazy val zioOptics: Def.Setting[_] = zioLib("optics", V.zioOptics)
-  lazy val zioQuery: Def.Setting[_] = zioLib("query", V.zioQuery)
   lazy val zioCli: Def.Setting[_] = zioLib("cli", V.zioCli)
 
   lazy val quill: Def.Setting[_] =
@@ -128,6 +126,12 @@ object IWMaterialsDeps extends AkkaLibs with SlickLibs with IWSupport {
   lazy val tapirSttpClient: Def.Setting[_] = tapirLib("sttp-client")
   lazy val tapirCats: Def.Setting[_] = tapirLib("cats")
   lazy val tapirZIOHttp4sServer: Def.Setting[_] = tapirLib("http4s-server-zio")
+
+  lazy val magnum: Def.Setting[_] = libraryDependencies += "com.augustnagro" % "magnum_3" % V.magnum
+  lazy val magnumZIO: Def.Setting[_] = libraryDependencies += "com.augustnagro" % "magnumzio_3" % V.magnum
+  lazy val magnumPG: Def.Setting[_] = libraryDependencies += "com.augustnagro" % "magnumpg_3" % V.magnum
+
+  lazy val scalatags: Def.Setting[_] = libraryDependencies += "com.lihaoyi" %%% "scalatags" % V.scalatags
 
   private val sttpClient3Org = "com.softwaremill.sttp.client3"
   def sttpClient3Lib(name: String): Def.Setting[_] =
