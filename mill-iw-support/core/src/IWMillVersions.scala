@@ -26,6 +26,7 @@ object IWMillVersions {
 
   // Other Libraries
   val cats = "2.13.0"
+  val utest = "0.8.2"
   val caliban = "2.9.2"
   val chimney = "1.7.3"
   val ducktape = "0.2.7"

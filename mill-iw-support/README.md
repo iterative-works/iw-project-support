@@ -28,8 +28,45 @@ IWMillDeps.zioJson      // ivy"dev.zio::zio-json:0.7.36"
 IWMillDeps.tapirCore    // ivy"com.softwaremill.sttp.tapir::tapir-core:1.11.16"
 
 // Use dependency groups
-IWMillDeps.useZIO()     // Core ZIO dependencies with test framework
-IWMillDeps.useZIOAll()  // Comprehensive ZIO stack
+IWMillDeps.zioCore      // List of core ZIO dependencies
+IWMillDeps.zioAll       // List of all ZIO dependencies
+```
+
+### IWBomModule
+
+Bill of Materials (BOM) module for centralized dependency management:
+
+```scala
+import mill._
+import works.iterative.mill._
+
+// Define a BOM module
+object bom extends IWBomModule {
+  def publishVersion = "0.1.0-SNAPSHOT"
+  
+  def pomSettings = PomSettings(
+    // Standard POM settings
+  )
+  
+  // Override with custom dependencies if needed
+  override def depManagement = T {
+    super.depManagement() ++ Agg(
+      ivy"com.example::custom-lib:1.0.0"
+    )
+  }
+}
+
+// Use the BOM in modules
+object myModule extends IWScalaModule {
+  // Reference the BOM module
+  override def bomModuleDeps = Seq(bom)
+  
+  // No need to specify versions - they come from the BOM
+  def ivyDeps = super.ivyDeps() ++ Agg(
+    ivy"dev.zio::zio",
+    ivy"dev.zio::zio-json"
+  )
+}
 ```
 
 ### IWScalaModule
@@ -44,10 +81,18 @@ object myProject extends IWScalaModule {
   // Use default Scala version (3.6.3)
   // and standard compiler options with SemanticDB enabled
   
-  def ivyDeps = super.ivyDeps() ++ IWMillDeps.useZIO()
+  def ivyDeps = super.ivyDeps() ++ Agg(
+    ivy"${IWMillDeps.zio}",
+    ivy"${IWMillDeps.zioJson}"
+  )
   
   // Standard test module configuration
-  object test extends Tests with IWTests
+  object test extends ScalaTests with TestModule.ZioTest {
+    def ivyDeps = super.ivyDeps() ++ Agg(
+      ivy"${IWMillDeps.zioTest}",
+      ivy"${IWMillDeps.zioTestSbt}"
+    )
+  }
 }
 ```
 
@@ -95,6 +140,51 @@ object root extends IWScalaModule with IWPublishModule {
   // ... configuration ...
 }
 ```
+
+## Dependency Management Approaches
+
+This library provides two approaches for dependency management:
+
+### 1. IWMillDeps (String Constants)
+
+Use the IWMillDeps object to access dependency strings with correct versions:
+
+```scala
+def ivyDeps = super.ivyDeps() ++ Agg(
+  ivy"${IWMillDeps.zio}",
+  ivy"${IWMillDeps.zioJson}"
+)
+```
+
+### 2. BOM (Bill of Materials)
+
+Use the IWBomModule to centralize dependency versions:
+
+```scala
+// Define a BOM module
+object bom extends IWBomModule {
+  def publishVersion = "0.1.0-SNAPSHOT"
+  def pomSettings = PomSettings(...)
+}
+
+// Use the BOM in modules
+object myModule extends IWScalaModule {
+  override def bomModuleDeps = Seq(bom)
+  
+  // No need to specify versions
+  def ivyDeps = super.ivyDeps() ++ Agg(
+    ivy"dev.zio::zio",
+    ivy"dev.zio::zio-json"
+  )
+}
+```
+
+The BOM approach offers these advantages:
+- Enforces consistent versions across modules
+- Simplifies version updates
+- Controls transitive dependency versions
+- Makes build files cleaner (no version strings)
+- Can be published as a separate artifact
 
 ## Examples
 
