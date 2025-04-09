@@ -1,56 +1,55 @@
 package works.iterative.mill
 
-/**
- * Centralized version management for Iterative Works projects using Mill.
- * This object contains all library versions used across projects.
- * 
- * Update this object to bump versions for all projects.
- */
+/** Centralized version management for Iterative Works projects using Mill. This object contains all
+  * library versions used across projects.
+  *
+  * Update this object to bump versions for all projects.
+  */
 object IWMillVersions {
-  // ZIO Ecosystem
-  val zio = "2.1.16"
-  val zioConfig = "4.0.3"
-  val zioCli = "0.7.0"
-  val zioInteropCats = "23.1.0.3"
-  val zioInteropReactiveStreams = "2.0.2"
-  val zioJson = "0.7.36"
-  val zioLogging = "2.5.0"
-  val zioNIO = "2.0.2"
-  val zioPrelude = "1.0.0-RC39"
-  val zioQuery = "0.7.6"
-  val zioSchema = "1.6.3"
+    // ZIO Ecosystem
+    val zio = "2.1.16"
+    val zioConfig = "4.0.3"
+    val zioCli = "0.7.0"
+    val zioInteropCats = "23.1.0.3"
+    val zioInteropReactiveStreams = "2.0.2"
+    val zioJson = "0.7.36"
+    val zioLogging = "2.5.0"
+    val zioNIO = "2.0.2"
+    val zioPrelude = "1.0.0-RC39"
+    val zioQuery = "0.7.6"
+    val zioSchema = "1.6.3"
 
-  // Akka Ecosystem
-  val akka = "2.6.18"
-  val akkaHttp = "10.4.0"
+    // Akka Ecosystem
+    val akka = "2.6.18"
+    val akkaHttp = "10.4.0"
 
-  // Other Libraries
-  val cats = "2.13.0"
-  val utest = "0.8.2"
-  val caliban = "2.9.2"
-  val chimney = "1.7.3"
-  val ducktape = "0.2.7"
-  val elastic4s = "7.12.4"
-  val http4s = "0.23.30"
-  val http4sBlaze = "0.23.17"
-  val http4sPac4J = "5.0.0"
-  val laminar = "17.2.0"
-  val laminext = "0.17.0"
-  val logbackClassic = "1.5.17"
-  val magnum = "2.0.0-M1"
-  val pac4j = "6.0.3"
-  val play = "2.8.18"
-  val playJson = "2.9.3"
-  val quill = "4.8.6"
-  val scalaJsMacroTaskExecutor = "1.1.1"
-  val scalaJsJavaSecureRandom = "1.0.0"
-  val scalatags = "0.13.1"
-  val scalaTest = "3.2.19"
-  val slick = "3.3.3"
-  val sttpClient3 = "3.10.3"
-  val sttpClient4 = "4.0.0-RC1"
-  val support = "1.7.0"
-  val tapir = "1.11.16"
-  val urlDsl = "0.7.0"
-  val waypoint = "9.0.0"
+    // Other Libraries
+    val cats = "2.13.0"
+    val utest = "0.8.2"
+    val caliban = "2.9.2"
+    val chimney = "1.7.3"
+    val ducktape = "0.2.7"
+    val elastic4s = "7.12.4"
+    val http4s = "0.23.30"
+    val http4sBlaze = "0.23.17"
+    val http4sPac4J = "5.0.0"
+    val laminar = "17.2.0"
+    val laminext = "0.17.0"
+    val logbackClassic = "1.5.17"
+    val magnum = "2.0.0-M1"
+    val pac4j = "6.0.3"
+    val play = "2.8.18"
+    val playJson = "2.9.3"
+    val quill = "4.8.6"
+    val scalaJsMacroTaskExecutor = "1.1.1"
+    val scalaJsJavaSecureRandom = "1.0.0"
+    val scalatags = "0.13.1"
+    val scalaTest = "3.2.19"
+    val slick = "3.3.3"
+    val sttpClient3 = "3.10.3"
+    val sttpClient4 = "4.0.0"
+    val support = "1.7.0"
+    val tapir = "1.11.16"
+    val urlDsl = "0.7.0"
+    val waypoint = "9.0.0"
 }
