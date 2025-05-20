@@ -25,7 +25,7 @@ object IWPluginPresets extends AutoPlugin {
         val addLocales: Def.Setting[?] =
             addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "4.5.0")
         val addScalaJS: Def.Setting[?] =
-            addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.18.2")
+            addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.19.0")
         val addScalaJSCrossproject: Def.Setting[?] =
             addSbtPlugin(
                 "org.portable-scala" % "sbt-scalajs-crossproject" % scalaJSCrossprojectVersion
