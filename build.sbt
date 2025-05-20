@@ -58,7 +58,8 @@ lazy val `sbt-iw-projects` = (project in file("sbt-iw-projects"))
         addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.3.2"),
         addSbtPlugin("io.github.cquiroz" % "sbt-tzdb" % "4.3.0"),
         addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "4.4.0"),
-        addSbtPlugin("org.typelevel" % "sbt-tpolecat" % "0.5.1")
+        addSbtPlugin("org.typelevel" % "sbt-tpolecat" % "0.5.1"),
+        addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.18.2")
     )
 
 lazy val `iw-project-support` = (project in file("."))

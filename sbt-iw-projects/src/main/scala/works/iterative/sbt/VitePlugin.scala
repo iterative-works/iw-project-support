@@ -2,8 +2,8 @@ package works.iterative.sbt
 
 import sbt._
 import Keys._
-// import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
-// import org.scalajs.sbtplugin.ScalaJSPlugin
+import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
+import org.scalajs.sbtplugin.ScalaJSPlugin
 import scala.sys.process._
 import sbt.nio.file.FileTreeView
 
@@ -82,8 +82,7 @@ object VitePlugin extends AutoPlugin {
         viteExtraEnv := Map.empty,
         startViteDev := {
             val workDir = baseDirectory.value
-            val extraEnv =
-                viteExtraEnv.value // + ("SCALAJS_OUTPUT" -> ((Compile / fastLinkJS / scalaJSLinkerOutputDirectory).value).getAbsolutePath)
+            val extraEnv = (startViteDev / viteExtraEnv).value
             val prefixedEnv = extraEnv.map { case (k, v) =>
                 s"VITE_$k" -> v.toString
             }.toSeq
@@ -102,27 +101,14 @@ object VitePlugin extends AutoPlugin {
                 FileTreeView.default.list(
                     List(baseFiles("*.json"), baseFiles("*.js"), baseFiles("*.html"))
                 )
-            /*
-      val linkerDirectory =
-        (Compile / fullLinkJS / scalaJSLinkerOutputDirectory).value
-      val viteInputs = FileTreeView.default.list(
-        linkerDirectory.toGlob / "*.js"
-      )
-             */
-            (viteConfigs /* ++ viteInputs*/ ).map(_._1.toFile)
+            viteConfigs.map(_._1.toFile)
         },
         viteBuild := {
             val s = streams.value
             val dist = viteDist.value
             val base = viteBasePath.value
             val files = viteMonitoredFiles.value
-            val extraEnv =
-                viteExtraEnv.value /* +
-          ("SCALAJS_MAIN_JS" -> ((Compile / fullLinkJS / scalaJSLinkerOutputDirectory).value / "main.js").getAbsolutePath) +
-          ("SCALAJS_OUTPUT" -> ((Compile / fullLinkJS / scalaJSLinkerOutputDirectory).value).getAbsolutePath)
-                 */
-            // We depend on fullLinkJS
-            // val _ = (Compile / fullLinkJS).value
+            val extraEnv = (viteBuild / viteExtraEnv).value
             def doBuild() = Process(
                 "yarn" :: "run" :: "vite" :: "build" :: "." :: "--outDir" :: dist.toString :: "--base" :: base :: Nil,
                 baseDirectory.value,
@@ -140,6 +126,29 @@ object VitePlugin extends AutoPlugin {
                     viteDevServer.value.stop()
                 }
             )
+        }
+    )
+}
+
+object ScalaJSVitePlugin extends AutoPlugin {
+    override lazy val requires = VitePlugin && ScalaJSPlugin
+    override lazy val trigger = allRequirements
+
+    import VitePlugin.autoImport._
+
+    override def projectSettings = Seq(
+        startViteDev / viteExtraEnv += ("SCALAJS_OUTPUT" -> ((Compile / fastLinkJS / scalaJSLinkerOutputDirectory).value).getAbsolutePath),
+        viteMonitoredFiles ++= {
+            val linkerDirectory = (Compile / fullLinkJS / scalaJSLinkerOutputDirectory).value
+            FileTreeView.default.list(linkerDirectory.toGlob / "*.js").map(_._1.toFile)
+        },
+        viteBuild / viteExtraEnv ++= Map(
+            "SCALAJS_MAIN_JS" -> ((Compile / fullLinkJS / scalaJSLinkerOutputDirectory).value / "main.js").getAbsolutePath,
+            "SCALAJS_OUTPUT" -> ((Compile / fullLinkJS / scalaJSLinkerOutputDirectory).value).getAbsolutePath
+        ),
+        viteBuild := {
+            val _ = (Compile / fullLinkJS).value
+            viteBuild.value
         }
     )
 }
