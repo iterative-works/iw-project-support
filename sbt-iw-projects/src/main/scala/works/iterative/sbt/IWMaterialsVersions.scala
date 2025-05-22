@@ -28,7 +28,7 @@ object IWMaterialsVersions {
     val sttpClient4 = "4.0.0"
     val support = "1.7.0"
     val tapir = "1.11.16"
-    val urlDsl = "0.7.0"
+    val urlDsl = "0.6.2" // Waypoint uses 0.6.2
     val waypoint = "9.0.0"
     val zio = "2.1.16"
     val zioConfig = "4.0.3"
