@@ -43,9 +43,7 @@ object IWPluginPresets extends AutoPlugin {
             addTzdb,
             addLocales,
             addScalablyTypedConverter
-        ) ++ (if (file(".git").isFile) { // only add sbt-scala-js-map if we're in a git repo
-                  Seq(addSbtScalaJSMap)
-              } else Seq.empty)
+        )
         val addLagom: Def.Setting[?] =
             addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.6.7")
         val addPlay: Def.Setting[?] =
@@ -62,7 +60,8 @@ object IWPluginPresets extends AutoPlugin {
         addSbtPlugin("org.typelevel" % "sbt-tpolecat" % "0.5.2"),
         addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.4"),
         addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.11.1"),
-        addSbtPlugin("com.github.sbt" % "sbt-git" % "2.0.1"),
+        // Do not add the sbt-git by default, needs extra setting for git worktrees and we don't use it usually
+        // addSbtPlugin("com.github.sbt" % "sbt-git" % "2.0.1"),
         addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.14.2"),
         addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.13.1"),
         addSbtPlugin(
