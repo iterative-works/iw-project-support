@@ -20,27 +20,27 @@ object IWScalaProjectPlugin extends AutoPlugin {
         def publishToIW: Seq[Def.Setting[?]] = inThisBuild(
             List(
                 publishTo := {
-                    val base = "https://dig.iterative.works/maven/"
-                    if (version.value.endsWith("SNAPSHOT")) {
-                        Some("snapshots" at base + "snapshots")
-                    } else Some("releases" at base + "releases")
+                    val nexus = "https://nexus.e-bs.cz/repository/maven-"
+                    if (isSnapshot.value)
+                        Some("snapshots" at nexus + "snapshots/")
+                    else
+                        Some("releases" at nexus + "releases/")
                 },
-                credentials += {
-                    val username = sys.env.getOrElse("IW_USERNAME", "")
-                    val password = sys.env.getOrElse("IW_PASSWORD", "")
-                    Credentials(
-                        "GitBucket Maven Repository",
-                        "dig.iterative.works",
-                        username,
-                        password
-                    )
-                }
+                credentials ++= (for {
+                    username <- sys.env.get("EBS_NEXUS_USERNAME")
+                    password <- sys.env.get("EBS_NEXUS_PASSWORD")
+                } yield Credentials(
+                    "Sonatype Nexus Repository Manager",
+                    "nexus.e-bs.cz",
+                    username,
+                    password
+                )).toList
             )
         )
         def resolveIW: Seq[Def.Setting[?]] = inThisBuild(
             List(
-                resolvers += "IW releases" at "https://dig.iterative.works/maven/releases",
-                resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
+                resolvers += "e-BS Release Repository" at "https://nexus.e-bs.cz/repository/maven-releases/",
+                resolvers += "e-BS Snapshot Repository" at "https://nexus.e-bs.cz/repository/maven-snapshots/"
             )
         )
     }

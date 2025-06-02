@@ -11,12 +11,12 @@ import mill.scalalib.publish._
   *   - publishVersion: The version to publish
   *   - pomSettings: The POM settings for the publication
   *
-  * Use IW_USERNAME and IW_PASSWORD environment variables for authentication.
+  * Use EBS_NEXUS_USERNAME and EBS_NEXUS_PASSWORD environment variables for authentication.
   */
 trait IWPublishModule extends PublishModule {
 
-  override def sonatypeUri = "https://dig.iterative.works/maven/releases"
+  override def sonatypeUri = "https://nexus.e-bs.cz/repository/maven-releases/"
   override def sonatypeSnapshotUri =
-    "https://dig.iterative.works/maven/snapshots"
+    "https://nexus.e-bs.cz/repository/maven-snapshots/"
 
 }
