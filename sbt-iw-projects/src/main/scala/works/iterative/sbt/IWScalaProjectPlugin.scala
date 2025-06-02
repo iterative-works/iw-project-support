@@ -17,25 +17,23 @@ object IWScalaProjectPlugin extends AutoPlugin {
         val scala2Version = "2.13.16"
         val scala3LTSVersion = "3.3.6"
         val scala3Version = "3.7.0"
-        def publishToIW: Seq[Def.Setting[?]] = inThisBuild(
-            List(
-                publishTo := {
-                    val nexus = "https://nexus.e-bs.cz/repository/maven-"
-                    if (isSnapshot.value)
-                        Some("snapshots" at nexus + "snapshots/")
-                    else
-                        Some("releases" at nexus + "releases/")
-                },
-                credentials ++= (for {
-                    username <- sys.env.get("EBS_NEXUS_USERNAME")
-                    password <- sys.env.get("EBS_NEXUS_PASSWORD")
-                } yield Credentials(
-                    "Sonatype Nexus Repository Manager",
-                    "nexus.e-bs.cz",
-                    username,
-                    password
-                )).toList
-            )
+        def publishToIW: Seq[Def.Setting[?]] = Seq(
+            ThisBuild / publishTo := {
+                val nexus = "https://nexus.e-bs.cz/repository/maven-"
+                if (isSnapshot.value)
+                    Some("snapshots" at nexus + "snapshots/")
+                else
+                    Some("releases" at nexus + "releases/")
+            },
+            ThisBuild / credentials ++= (for {
+                username <- sys.env.get("EBS_NEXUS_USERNAME")
+                password <- sys.env.get("EBS_NEXUS_PASSWORD")
+            } yield Credentials(
+                "Sonatype Nexus Repository Manager",
+                "nexus.e-bs.cz",
+                username,
+                password
+            )).toList
         )
         def resolveIW: Seq[Def.Setting[?]] = inThisBuild(
             List(
