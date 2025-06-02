@@ -5,25 +5,30 @@ ThisBuild / organization := "works.iterative"
 ThisBuild / versionScheme := Some("strict")
 
 inThisBuild(
-    List(
-        publishTo := {
-            val base = "https://dig.iterative.works/maven/"
-            if (version.value.endsWith("SNAPSHOT"))
-                Some("snapshots" at base + "snapshots")
-            else Some("releases" at base + "releases")
-        },
-        credentials += {
-            val username = sys.env.getOrElse("IW_USERNAME", "")
-            val password = sys.env.getOrElse("IW_PASSWORD", "")
-            Credentials(
-                "GitBucket Maven Repository",
-                "dig.iterative.works",
-                username,
-                password
-            )
-        }
+  List(
+    resolvers ++= Seq(
+      "e-BS Snapshot Repository" at "https://nexus.e-bs.cz/repository/maven-snapshots/",
+      "e-BS Release Repository" at "https://nexus.e-bs.cz/repository/maven-releases/"
     )
+  ) ++
+    (for {
+      username <- sys.env.get("EBS_NEXUS_USERNAME")
+      password <- sys.env.get("EBS_NEXUS_PASSWORD")
+    } yield credentials += Credentials(
+      "Sonatype Nexus Repository Manager",
+      "nexus.e-bs.cz",
+      username,
+      password
+    )).toList
 )
+
+ThisBuild / publishTo := {
+  val nexus = "https://nexus.e-bs.cz/repository/maven-"
+  if (isSnapshot.value)
+    Some("snapshots" at nexus + "snapshots/")
+  else
+    Some("releases" at nexus + "releases/")
+}
 
 lazy val `sbt-iw-plugin-presets` = (project in file("sbt-iw-plugin-presets"))
     .enablePlugins(SbtPlugin, BuildInfoPlugin)

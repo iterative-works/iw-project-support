@@ -1,5 +1,24 @@
 {
   "nodes": {
+    "eid-pki": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1722189474,
+        "narHash": "sha256-eeMIKVfxfPwAMlGEIwSwwuGtvw9sUH7wY2J96UfFe5g=",
+        "ref": "main",
+        "rev": "1005485aac81c49c6b1c53b56b429452ddc13b04",
+        "revCount": 8,
+        "type": "git",
+        "url": "https://gitlab.e-bs.cz/mph/eid-nix-pki.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://gitlab.e-bs.cz/mph/eid-nix-pki.git"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -36,6 +55,22 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1719506693,
+        "narHash": "sha256-C8e9S7RzshSdHB7L+v9I51af1gDM5unhJ2xO1ywxNH8=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "b2852eb9365c6de48ffb0dc2c9562591f652242a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1746055187,
         "narHash": "sha256-3dqArYSMP9hM7Qpy5YWhnSjiqniSaT2uc5h2Po7tmg0=",
         "owner": "NixOS",
@@ -52,9 +87,10 @@
     },
     "root": {
       "inputs": {
+        "eid-pki": "eid-pki",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       }
     },
     "systems": {
