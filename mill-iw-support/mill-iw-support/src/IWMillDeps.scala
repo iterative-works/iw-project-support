@@ -74,25 +74,6 @@ object IWMillDeps {
     // Logging
     val logbackClassic = mvn"ch.qos.logback:logback-classic:${V.logbackClassic}"
     
-    // Utility
-    // Note: silencer-lib is only available for Scala 2.13
-    val silencerLib = mvn"com.github.ghik::silencer-lib::1.4.2"
-    
-    // MongoDB
-    // Note: mongo-scala-driver is only available for Scala 2.13
-    val mongoScalaDriver = mvn"org.mongodb.scala::mongo-scala-driver::4.2.3"
-    
-    // Database - SQL
-    val flyway = mvn"org.flywaydb:flyway-core:${V.flyway}"
-    val flywayPostgres = mvn"org.flywaydb:flyway-database-postgresql:${V.flyway}"
-    val postgresql = mvn"org.postgresql:postgresql:${V.postgresql}"
-    val hikariCP = mvn"com.zaxxer:HikariCP:${V.hikariCP}"
-    
-    // Testcontainers
-    val testcontainers = mvn"org.testcontainers:testcontainers:${V.testcontainers}"
-    val testcontainersPostgres = mvn"org.testcontainers:postgresql:${V.testcontainers}"
-    val testcontainersScalaPostgres = mvn"com.dimafeng::testcontainers-scala-postgresql::${V.testcontainersScala}"
-    
     // Other utilities
     val chimney = mvn"io.scalaland::chimney::${V.chimney}"
 }
