@@ -53,4 +53,9 @@ object IWMillVersions {
     val urlDsl = "0.7.0"
     val waypoint = "9.0.0"
     val silencer = "1.7.19"
+    val flyway = "11.4.0"
+    val postgresql = "42.7.5"
+    val hikariCP = "6.2.1"
+    val testcontainers = "1.20.4"
+    val testcontainersScala = "0.41.5"
 }

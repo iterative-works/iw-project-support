@@ -47,9 +47,9 @@ object IWMillDeps {
 
     // Database
     val quill = mvn"io.getquill::quill-jdbc-zio:${V.quill}"
-    val magnum = mvn"com.augustnagro::magnum_3:${V.magnum}"
-    val magnumZIO = mvn"com.augustnagro::magnumzio_3:${V.magnum}"
-    val magnumPG = mvn"com.augustnagro::magnumpg_3:${V.magnum}"
+    val magnum = mvn"com.augustnagro::magnum::${V.magnum}"
+    val magnumZIO = mvn"com.augustnagro::magnumzio::${V.magnum}"
+    val magnumPG = mvn"com.augustnagro::magnumpg::${V.magnum}"
 
     // HTTP
     val tapirCore = mvn"com.softwaremill.sttp.tapir::tapir-core::${V.tapir}"
@@ -81,4 +81,18 @@ object IWMillDeps {
     // MongoDB
     // Note: mongo-scala-driver is only available for Scala 2.13
     val mongoScalaDriver = mvn"org.mongodb.scala::mongo-scala-driver::4.2.3"
+    
+    // Database - SQL
+    val flyway = mvn"org.flywaydb:flyway-core:${V.flyway}"
+    val flywayPostgres = mvn"org.flywaydb:flyway-database-postgresql:${V.flyway}"
+    val postgresql = mvn"org.postgresql:postgresql:${V.postgresql}"
+    val hikariCP = mvn"com.zaxxer:HikariCP:${V.hikariCP}"
+    
+    // Testcontainers
+    val testcontainers = mvn"org.testcontainers:testcontainers:${V.testcontainers}"
+    val testcontainersPostgres = mvn"org.testcontainers:postgresql:${V.testcontainers}"
+    val testcontainersScalaPostgres = mvn"com.dimafeng::testcontainers-scala-postgresql::${V.testcontainersScala}"
+    
+    // Other utilities
+    val chimney = mvn"io.scalaland::chimney::${V.chimney}"
 }
