@@ -80,13 +80,21 @@ trait IWScalaModule extends ScalaModule with ScalafmtModule with IWScalaVersions
     }
 
     // Enable SemanticDB for tooling
-    def semanticDbOptions = Seq(
-        "-Xsemanticdb"
-    )
+    def semanticDbOptions = Task {
+        if (scalaVersion().startsWith("2.")) {
+            // For Scala 2, semanticdb requires a compiler plugin
+            // We'll skip it for now to avoid compilation errors
+            Seq.empty
+        } else {
+            Seq(
+                "-Xsemanticdb"
+            )
+        }
+    }
 
     // Override scalacOptions to include both base options and SemanticDB options
     override def scalacOptions = Task {
-        super.scalacOptions() ++ baseScalacOptions() ++ semanticDbOptions
+        super.scalacOptions() ++ baseScalacOptions() ++ semanticDbOptions()
     }
 
     // Base test configuration

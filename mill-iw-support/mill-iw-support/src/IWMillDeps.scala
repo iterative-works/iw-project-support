@@ -55,6 +55,11 @@ object IWMillDeps {
     val tapirCore = mvn"com.softwaremill.sttp.tapir::tapir-core::${V.tapir}"
     val tapirZIO = mvn"com.softwaremill.sttp.tapir::tapir-zio::${V.tapir}"
     val tapirZIOJson = mvn"com.softwaremill.sttp.tapir::tapir-json-zio::${V.tapir}"
+    val tapirSttpClient = mvn"com.softwaremill.sttp.tapir::tapir-sttp-client::${V.tapir}"
+    val tapirZIOHttp4sServer = mvn"com.softwaremill.sttp.tapir::tapir-http4s-server-zio::${V.tapir}"
+    
+    // STTP Client
+    val sttpClientZio = mvn"com.softwaremill.sttp.client3::zio::${V.sttpClient3}"
 
     // UI/Frontend
     val scalatags = mvn"com.lihaoyi::scalatags::${V.scalatags}"
@@ -68,4 +73,12 @@ object IWMillDeps {
 
     // Logging
     val logbackClassic = mvn"ch.qos.logback:logback-classic:${V.logbackClassic}"
+    
+    // Utility
+    // Note: silencer-lib is only available for Scala 2.13
+    val silencerLib = mvn"com.github.ghik::silencer-lib::1.4.2"
+    
+    // MongoDB
+    // Note: mongo-scala-driver is only available for Scala 2.13
+    val mongoScalaDriver = mvn"org.mongodb.scala::mongo-scala-driver::4.2.3"
 }

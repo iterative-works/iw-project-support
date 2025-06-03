@@ -52,4 +52,5 @@ object IWMillVersions {
     val tapir = "1.11.16"
     val urlDsl = "0.7.0"
     val waypoint = "9.0.0"
+    val silencer = "1.7.19"
 }
