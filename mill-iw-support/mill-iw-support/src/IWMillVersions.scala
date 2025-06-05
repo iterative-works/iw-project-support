@@ -22,6 +22,7 @@ object IWMillVersions {
     // Akka Ecosystem
     val akka = "2.6.18"
     val akkaHttp = "10.4.0"
+    val akkaProjection = "1.2.5"
 
     // Other Libraries
     val cats = "2.13.0"
