@@ -18,6 +18,7 @@ object IWMillVersions {
     val zioPrelude = "1.0.0-RC39"
     val zioQuery = "0.7.6"
     val zioSchema = "1.6.3"
+    val zioHttp = "3.0.0-RC9"
 
     // Akka Ecosystem
     val akka = "2.6.18"
