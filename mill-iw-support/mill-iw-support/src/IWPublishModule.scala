@@ -1,7 +1,6 @@
 package works.iterative.mill
 
 import mill._
-import mill.define._
 import mill.scalalib._
 import mill.scalalib.publish._
 
@@ -30,7 +29,7 @@ trait IWPublishModule extends PublishModule {
   override def publish(
       sonatypeCreds: String = "",
       signed: Boolean = false,  // Disable signing by default
-      gpgArgs: Seq[String] = Seq.empty,
+      gpgArgs: String = "",
       release: Boolean = true,
       readTimeout: Int = 30 * 60 * 1000,
       connectTimeout: Int = 30 * 60 * 1000,
