@@ -12,16 +12,18 @@ import mill.scalalib.publish._
   *   - pomSettings: The POM settings for the publication
   *
   * Use EBS_NEXUS_USERNAME and EBS_NEXUS_PASSWORD environment variables for authentication.
-  * 
+  *
   * Set environment variables:
   * export MILL_SONATYPE_USERNAME=$EBS_NEXUS_USERNAME
   * export MILL_SONATYPE_PASSWORD=$EBS_NEXUS_PASSWORD
+  *
+  * For releases, publish with:
+  * mill yourmodule.publish --sonatypeUri https://nexus.e-bs.cz/repository/maven-releases/ --stagingRelease false
+  *
+  * For snapshots, publish with:
+  * mill yourmodule.publish --sonatypeUri https://nexus.e-bs.cz/repository/maven-snapshots/ --stagingRelease false
   */
 trait IWPublishModule extends PublishModule {
-
-  override def sonatypeUri = "https://nexus.e-bs.cz/repository/maven-releases/"
-  override def sonatypeSnapshotUri =
-    "https://nexus.e-bs.cz/repository/maven-snapshots/"
 
   /**
    * Override publish to disable signing by default for private repositories
