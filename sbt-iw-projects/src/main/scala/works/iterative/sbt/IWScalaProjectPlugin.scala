@@ -14,9 +14,9 @@ object IWScalaProjectPlugin extends AutoPlugin {
     override def trigger: PluginTrigger = allRequirements
 
     object autoImport {
-        val scala2Version = "2.13.16"
-        val scala3LTSVersion = "3.3.6"
-        val scala3Version = "3.7.0"
+        val scala2Version = "2.13.17"
+        val scala3LTSVersion = "3.3.7"
+        val scala3Version = "3.7.4"
         def publishToIW: Seq[Def.Setting[?]] = Seq(
             ThisBuild / publishTo := {
                 val nexus = "https://nexus.e-bs.cz/repository/maven-"

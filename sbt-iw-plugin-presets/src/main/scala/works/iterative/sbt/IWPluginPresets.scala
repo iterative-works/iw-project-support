@@ -25,7 +25,7 @@ object IWPluginPresets extends AutoPlugin {
         val addLocales: Def.Setting[?] =
             addSbtPlugin("io.github.cquiroz" % "sbt-locales" % "4.5.0")
         val addScalaJS: Def.Setting[?] =
-            addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.19.0")
+            addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.20.1")
         val addScalaJSCrossproject: Def.Setting[?] =
             addSbtPlugin(
                 "org.portable-scala" % "sbt-scalajs-crossproject" % scalaJSCrossprojectVersion
@@ -51,18 +51,18 @@ object IWPluginPresets extends AutoPlugin {
         val addPlaySupport: Seq[Def.Setting[?]] = Seq(
             addPlay,
             addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "2.0.0"),
-            addSbtPlugin("com.typesafe.sbt" % "sbt-digest" % "2.0.0")
+            addSbtPlugin("com.typesafe.sbt" % "sbt-digest" % "2.1.0")
         )
     }
 
     override def projectSettings: Seq[Def.Setting[?]] = Seq(
         addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.6.4"),
         addSbtPlugin("org.typelevel" % "sbt-tpolecat" % "0.5.2"),
-        addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.4"),
-        addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.11.1"),
+        addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.6"),
+        addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.11.4"),
         // Do not add the sbt-git by default, needs extra setting for git worktrees and we don't use it usually
         // addSbtPlugin("com.github.sbt" % "sbt-git" % "2.0.1"),
-        addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.14.2"),
+        addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.14.4"),
         addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.13.1"),
         addSbtPlugin(
             "org.portable-scala" % "sbt-scalajs-crossproject" % scalaJSCrossprojectVersion
