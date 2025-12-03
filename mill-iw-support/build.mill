@@ -9,11 +9,11 @@ import mill.util.BuildInfo.{millVersion, millBinPlatform}
   * compatible with Mill.
   */
 object `mill-iw-support` extends ScalaModule with ScalafmtModule with PublishModule {
-  def scalaVersion = "3.7.0"
+  def scalaVersion = "3.7.4"
 
   def platformSuffix = s"_mill$millBinPlatform"
 
-  def publishVersion = "0.1.0-SNAPSHOT"
+  def publishVersion = "0.1.1-SNAPSHOT"
 
   def pomSettings = PomSettings(
     description = "Iterative Works Mill Support Library",

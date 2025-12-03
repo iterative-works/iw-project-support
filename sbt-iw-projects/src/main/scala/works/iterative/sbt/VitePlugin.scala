@@ -109,6 +109,14 @@ object VitePlugin extends AutoPlugin {
             val base = viteBasePath.value
             val files = viteMonitoredFiles.value
             val extraEnv = (viteBuild / viteExtraEnv).value
+
+            // Create a virtual file representing the configuration
+            // FileFunction.cached uses file timestamps, so we write config to a file
+            // This ensures the cache invalidates when viteBasePath or viteExtraEnv changes
+            val configFile = s.cacheDirectory / "vite-config"
+            val configContent = s"BASE=$base\nENV=${extraEnv.toSeq.sortBy(_._1).mkString("\n")}"
+            IO.write(configFile, configContent)
+
             def doBuild() = Process(
                 "yarn" :: "run" :: "vite" :: "build" :: "." :: "--outDir" :: dist.toString :: "--base" :: base :: Nil,
                 baseDirectory.value,
@@ -118,7 +126,8 @@ object VitePlugin extends AutoPlugin {
                 doBuild()
                 Set(dist)
             }
-            cachedFun(files.toSet).head
+            // Include configFile in the input set so cache invalidates when config changes
+            cachedFun(files.toSet + configFile).head
         },
         (onLoad in Global) := {
             (onLoad in Global).value.compose(
