@@ -13,8 +13,8 @@ object IWPluginPresets extends AutoPlugin {
             addSbtPlugin(
                 "works.iterative.sbt" % "sbt-iw-projects" % BuildInfo.version
             ),
-            resolvers += "IW releases" at "https://dig.iterative.works/maven/releases",
-            resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
+            resolvers += "IW releases" at "https://nexus.e-bs.cz/repository/maven-releases/",
+            resolvers += "IW snapshots" at "https://nexus.e-bs.cz/repository/maven-snapshots/"
         )
         val addScalablyTypedConverter: Def.Setting[?] =
             addSbtPlugin(
