@@ -19,17 +19,17 @@ object IWScalaProjectPlugin extends AutoPlugin {
     def publishToIW: Seq[Def.Setting[_]] = inThisBuild(
       List(
         publishTo := {
-          val base = "https://dig.iterative.works/maven/"
+          val base = "https://nexus.e-bs.cz/repository/maven-"
           if (version.value.endsWith("SNAPSHOT"))
-            Some("snapshots" at base + "snapshots")
-          else Some("releases" at base + "releases")
+            Some("snapshots" at base + "snapshots/")
+          else Some("releases" at base + "releases/")
         },
         credentials += {
-          val username = sys.env.getOrElse("IW_USERNAME", "")
-          val password = sys.env.getOrElse("IW_PASSWORD", "")
+          val username = sys.env.getOrElse("EBS_NEXUS_USERNAME", "")
+          val password = sys.env.getOrElse("EBS_NEXUS_PASSWORD", "")
           Credentials(
-            "GitBucket Maven Repository",
-            "dig.iterative.works",
+            "Sonatype Nexus Repository Manager",
+            "nexus.e-bs.cz",
             username,
             password
           )
@@ -38,8 +38,8 @@ object IWScalaProjectPlugin extends AutoPlugin {
     )
     def resolveIW: Seq[Def.Setting[_]] = inThisBuild(
       List(
-        resolvers += "IW releases" at "https://dig.iterative.works/maven/releases",
-        resolvers += "IW snapshots" at "https://dig.iterative.works/maven/snapshots"
+        resolvers += "IW releases" at "https://nexus.e-bs.cz/repository/maven-releases/",
+        resolvers += "IW snapshots" at "https://nexus.e-bs.cz/repository/maven-snapshots/"
       )
     )
   }
