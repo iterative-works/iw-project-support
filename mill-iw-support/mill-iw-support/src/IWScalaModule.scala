@@ -3,7 +3,6 @@ package works.iterative.mill
 import mill._
 import mill.scalalib._
 import mill.scalalib.scalafmt._
-import coursier.maven.MavenRepository
 
 /** Standard Scala module trait for Iterative Works projects using Mill. This trait sets up standard
   * compiler options and configuration.
@@ -11,14 +10,6 @@ import coursier.maven.MavenRepository
 trait IWScalaModule extends ScalaModule with ScalafmtModule with IWScalaVersions {
 
     override def scalaVersion = scala3Version
-    
-    // Add e-BS Maven repositories for dependency resolution
-    override def repositoriesTask = Task.Anon {
-        super.repositoriesTask() ++ Seq(
-            MavenRepository("https://nexus.e-bs.cz/repository/maven-releases/"),
-            MavenRepository("https://nexus.e-bs.cz/repository/maven-snapshots/")
-        )
-    }
 
     // Define base compiler options based on Scala version
     def baseScalacOptions = Task {
