@@ -16,7 +16,7 @@ val gitHubPackagesRepo = "https://maven.pkg.github.com/iterative-works/iw-projec
   *   mill mill-iw-support.publish
   */
 object `mill-iw-support` extends ScalaModule with ScalafmtModule with PublishModule {
-  def scalaVersion = "3.7.4"
+  def scalaVersion = "3.8.1"
 
   def platformSuffix = s"_mill$millBinPlatform"
 

@@ -1,10 +1,11 @@
+//| mvnDeps:
+//| - works.iterative::mill-iw-support:0.1.0-SNAPSHOT
+
 import mill._
 import mill.scalalib._
 import mill.scalalib.publish._
 import mill.scalalib.scalafmt._
 
-// Import our IW Mill Support library
-import $ivy.`works.iterative::mill-iw-support:0.1.0-SNAPSHOT`
 import works.iterative.mill._
 
 // Define a BOM (Bill of Materials) module
@@ -13,6 +14,8 @@ object bom extends IWBomModule
 // Example module using the IW Mill support with BOM
 object example extends IWScalaModule with IWPublishModule {
   def publishVersion = "0.1.0-SNAPSHOT"
+
+  def gitHubPackagesUri = "https://maven.pkg.github.com/example/example"
 
   // Use the BOM module for dependency management
   override def bomModuleDeps = Seq(bom)
@@ -30,12 +33,12 @@ object example extends IWScalaModule with IWPublishModule {
 
   // With BOM, we don't need to specify versions
   // They're managed by the BOM module
-  def ivyDeps = super.ivyDeps() ++ Agg(
-    ivy"dev.zio::zio",
-    ivy"dev.zio::zio-json",
-    ivy"com.softwaremill.sttp.tapir::tapir-core",
-    ivy"com.softwaremill.sttp.tapir::tapir-zio",
-    ivy"com.softwaremill.sttp.tapir::tapir-json-zio"
+  def mvnDeps = Seq(
+    mvn"dev.zio::zio",
+    mvn"dev.zio::zio-json",
+    mvn"com.softwaremill.sttp.tapir::tapir-core",
+    mvn"com.softwaremill.sttp.tapir::tapir-zio",
+    mvn"com.softwaremill.sttp.tapir::tapir-json-zio"
   )
 
   // Define test module using standard Mill approach
@@ -43,9 +46,9 @@ object example extends IWScalaModule with IWPublishModule {
     // Use the BOM module for dependency management
     override def bomModuleDeps = Seq(bom)
 
-    def ivyDeps = super.ivyDeps() ++ Agg(
-      ivy"dev.zio::zio-test", // Version comes from BOM
-      ivy"dev.zio::zio-test-sbt" // Version comes from BOM
+    def mvnDeps = Seq(
+      mvn"dev.zio::zio-test", // Version comes from BOM
+      mvn"dev.zio::zio-test-sbt" // Version comes from BOM
     )
   }
 }
