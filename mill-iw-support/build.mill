@@ -5,14 +5,11 @@ import mill.scalalib.scalafmt._
 import mill.scalalib.TestModule.Utest
 import mill.util.BuildInfo.{millVersion, millBinPlatform}
 
-/** GitHub Packages repository URL for this project. */
-val gitHubPackagesRepo = "https://maven.pkg.github.com/iterative-works/iw-project-support"
-
 /** Main module for the mill-iw-support library.
   *
-  * Publishing to GitHub Packages:
-  *   export MILL_SONATYPE_USERNAME=$GITHUB_USERNAME
-  *   export MILL_SONATYPE_PASSWORD=$GITHUB_TOKEN
+  * Publishing to Maven Central via Sonatype:
+  *   export MILL_SONATYPE_USERNAME=your-sonatype-username
+  *   export MILL_SONATYPE_PASSWORD=your-sonatype-password
   *   mill mill-iw-support.publish
   */
 object `mill-iw-support` extends ScalaModule with ScalafmtModule with PublishModule {
@@ -20,10 +17,7 @@ object `mill-iw-support` extends ScalaModule with ScalafmtModule with PublishMod
 
   def platformSuffix = s"_mill$millBinPlatform"
 
-  def publishVersion = "0.1.1-SNAPSHOT"
-
-  override def sonatypeLegacyOssrhUri = gitHubPackagesRepo
-  override def sonatypeCentralSnapshotUri = gitHubPackagesRepo
+  def publishVersion = "0.1.2-SNAPSHOT"
 
   def pomSettings = PomSettings(
     description = "Iterative Works Mill Support Library",
@@ -39,27 +33,6 @@ object `mill-iw-support` extends ScalaModule with ScalafmtModule with PublishMod
         "https://github.com/iterative-works"
       )
     )
-  )
-
-  /** Publish to GitHub Packages without signing or staging. */
-  override def publish(
-      sonatypeCreds: String = "",
-      signed: Boolean = false,
-      gpgArgs: String = "",
-      release: Boolean = true,
-      readTimeout: Int = 30 * 60 * 1000,
-      connectTimeout: Int = 30 * 60 * 1000,
-      awaitTimeout: Int = 30 * 60 * 1000,
-      stagingRelease: Boolean = false
-  ): Command[Unit] = super.publish(
-    sonatypeCreds,
-    signed,
-    gpgArgs,
-    release,
-    readTimeout,
-    connectTimeout,
-    awaitTimeout,
-    stagingRelease
   )
 
   def mvnDeps = Seq(

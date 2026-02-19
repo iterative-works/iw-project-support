@@ -90,3 +90,4 @@ out/
 # semanticdb
 *.semanticdb
 /.direnv/
+.envrc.local
