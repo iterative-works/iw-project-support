@@ -57,6 +57,11 @@ trait IWScalaModule extends ScalaModule with ScalafmtModule with IWScalaVersions
                 "-Wunused:privates"
             )
         } else {
+            val kindProjectorFlag =
+                if (scalaVersion().startsWith("3.3") || scalaVersion().startsWith("3.4"))
+                    "-Ykind-projector"
+                else
+                    "-Xkind-projector"
             Seq(
                 "-encoding",
                 "utf8",
@@ -66,7 +71,7 @@ trait IWScalaModule extends ScalaModule with ScalafmtModule with IWScalaVersions
                 "-language:experimental.macros",
                 "-language:higherKinds",
                 "-language:implicitConversions",
-                "-Xkind-projector",
+                kindProjectorFlag,
                 "-Wvalue-discard",
                 "-Wnonunit-statement",
                 "-Wunused:implicits",
