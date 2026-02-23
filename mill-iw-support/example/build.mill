@@ -15,8 +15,6 @@ object bom extends IWBomModule
 object example extends IWScalaModule with IWPublishModule {
   def publishVersion = "0.1.0-SNAPSHOT"
 
-  def gitHubPackagesUri = "https://maven.pkg.github.com/example/example"
-
   // Use the BOM module for dependency management
   override def bomModuleDeps = Seq(bom)
 

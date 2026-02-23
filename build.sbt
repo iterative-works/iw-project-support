@@ -7,23 +7,27 @@ ThisBuild / versionScheme := Some("strict")
 inThisBuild(
   List(
     resolvers ++= Seq(
-      "GitHub Packages" at "https://maven.pkg.github.com/iterative-works/iw-project-support"
+      "e-BS Release Repository" at "https://nexus.e-bs.cz/repository/maven-releases/"
     )
   ) ++
     (for {
-      username <- sys.env.get("GITHUB_ACTOR").orElse(sys.env.get("GITHUB_USERNAME"))
-      token <- sys.env.get("GITHUB_TOKEN")
+      username <- sys.env.get("EBS_NEXUS_USERNAME")
+      password <- sys.env.get("EBS_NEXUS_PASSWORD")
     } yield credentials += Credentials(
-      "GitHub Package Registry",
-      "maven.pkg.github.com",
+      "Sonatype Nexus Repository Manager",
+      "nexus.e-bs.cz",
       username,
-      token
+      password
     )).toList
 )
 
-ThisBuild / publishTo := Some(
-  "GitHub Packages" at "https://maven.pkg.github.com/iterative-works/iw-project-support"
-)
+ThisBuild / publishTo := {
+  val nexus = "https://nexus.e-bs.cz/repository/maven-"
+  if (isSnapshot.value)
+    Some("snapshots" at nexus + "snapshots/")
+  else
+    Some("releases" at nexus + "releases/")
+}
 
 lazy val `sbt-iw-plugin-presets` = (project in file("sbt-iw-plugin-presets"))
     .enablePlugins(SbtPlugin, BuildInfoPlugin)
