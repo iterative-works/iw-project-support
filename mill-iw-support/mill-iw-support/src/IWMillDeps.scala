@@ -60,6 +60,8 @@ object IWMillDeps {
     
     // STTP Client
     val sttpClientZio = mvn"com.softwaremill.sttp.client3::zio::${V.sttpClient3}"
+    val sttpClient4Core = mvn"com.softwaremill.sttp.client4::core::${V.sttpClient4}"
+    val sttpClient4Zio = mvn"com.softwaremill.sttp.client4::zio::${V.sttpClient4}"
 
     // UI/Frontend
     val scalatags = mvn"com.lihaoyi::scalatags::${V.scalatags}"
