@@ -186,6 +186,23 @@ The BOM approach offers these advantages:
 - Makes build files cleaner (no version strings)
 - Can be published as a separate artifact
 
+## Releasing
+
+Releases are published to Maven Central via Sonatype Central, triggered automatically by CI when a `mill-v*` tag is pushed.
+
+To release a new version:
+
+1. Update `publishVersion` in `build.mill` from `X.Y.Z-SNAPSHOT` to `X.Y.Z`
+2. Commit: `git commit -am "release: mill-iw-support X.Y.Z"`
+3. Tag: `git tag mill-vX.Y.Z`
+4. Bump to next SNAPSHOT: update `publishVersion` to `X.Y.(Z+1)-SNAPSHOT`
+5. Commit: `git commit -am "chore: bump mill-iw-support to X.Y.(Z+1)-SNAPSHOT"`
+6. Push everything: `git push && git push --tags`
+
+CI will pick up the tag and publish the release artifact. Maven Central sync typically takes 5–30 minutes after the CI job succeeds.
+
+**Note:** Maven Central does not support SNAPSHOT versions. Only tagged releases are published.
+
 ## Examples
 
 See the `example` directory for a complete working example.
