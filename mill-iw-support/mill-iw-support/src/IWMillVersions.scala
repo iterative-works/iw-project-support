@@ -12,7 +12,7 @@ object IWMillVersions {
     val zioCli = "0.8.0"
     val zioInteropCats = "23.1.0.13"
     val zioInteropReactiveStreams = "2.0.2"
-    val zioJson = "0.9.0"
+    val zioJson = "0.7.44"
     val zioLogging = "2.5.3"
     val zioNIO = "2.0.2"
     val zioPrelude = "1.0.0-RC46"
@@ -51,7 +51,7 @@ object IWMillVersions {
     val sttpClient3 = "3.11.0"
     val sttpClient4 = "4.0.19"
     val support = "1.7.0"
-    val tapir = "1.13.9"
+    val tapir = "1.13.15"
     val urlDsl = "0.6.2" // Waypoint uses 0.6.2
     val waypoint = "9.0.0"
 }
