@@ -1,0 +1,54 @@
+# PURPOSE: Publishes the sbt-iw-plugin-presets and sbt-iw-projects SBT plugins to the iterative-works Forgejo Maven registry on pushes to main (snapshots) and v* tags.
+# PURPOSE: Additionally publishes releases to the e-BS client Nexus on v* tags.
+
+name: Publish SBT plugins
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Set up sbt
+        uses: sbt/setup-sbt@v1
+
+      - name: Cache Coursier dependencies
+        uses: coursier/cache-action@v6
+
+      # Every push publishes to the forge's own Maven registry: a main push publishes the
+      # current -SNAPSHOT, a vX.Y.Z tag publishes the release. IW_PUBLISH_TARGET=forge routes
+      # publishTo to the Forgejo endpoint (releases and snapshots share one URL, no signing).
+      # Credentials are iterative-works org-level Actions secrets; the org is public so reads
+      # are anonymous. The root project skips publishing, so this publishes the two plugins.
+      - name: Publish to Forgejo Maven registry
+        env:
+          IW_PUBLISH_TARGET: forge
+          MILL_MAVEN_USERNAME: ${{ secrets.MILL_MAVEN_USERNAME }}
+          MILL_MAVEN_PASSWORD: ${{ secrets.MILL_MAVEN_PASSWORD }}
+        run: sbt publish
+
+      # Releases additionally go to the e-BS client Nexus. Tags only; the default publish
+      # target (nexus) splits snapshots/releases by version. EBS_NEXUS_* are forge secrets.
+      - name: Publish to e-BS Nexus
+        if: github.ref_type == 'tag'
+        env:
+          EBS_NEXUS_USERNAME: ${{ secrets.EBS_NEXUS_USERNAME }}
+          EBS_NEXUS_PASSWORD: ${{ secrets.EBS_NEXUS_PASSWORD }}
+        run: sbt publish
