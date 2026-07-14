@@ -18,15 +18,35 @@ inThisBuild(
       "nexus.e-bs.cz",
       username,
       password
+    )).toList ++
+    (for {
+      username <- sys.env.get("MILL_MAVEN_USERNAME")
+      password <- sys.env.get("MILL_MAVEN_PASSWORD")
+    } yield credentials += Credentials(
+      "Gitea Package API",
+      "code.iterative.works",
+      username,
+      password
     )).toList
 )
 
+// IW_PUBLISH_TARGET selects the publish destination: "forge" routes to the
+// iterative-works Forgejo Maven registry (one endpoint for releases and snapshots,
+// no signing); the default routes to the e-BS client Nexus, split by snapshot/release.
 ThisBuild / publishTo := {
-  val nexus = "https://nexus.e-bs.cz/repository/maven-"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "snapshots/")
-  else
-    Some("releases" at nexus + "releases/")
+  sys.env.getOrElse("IW_PUBLISH_TARGET", "nexus") match {
+    case "forge" =>
+      Some(
+        "Forgejo Maven registry" at
+          "https://code.iterative.works/api/packages/iterative-works/maven"
+      )
+    case _ =>
+      val nexus = "https://nexus.e-bs.cz/repository/maven-"
+      if (isSnapshot.value)
+        Some("snapshots" at nexus + "snapshots/")
+      else
+        Some("releases" at nexus + "releases/")
+  }
 }
 
 lazy val `sbt-iw-plugin-presets` = (project in file("sbt-iw-plugin-presets"))
